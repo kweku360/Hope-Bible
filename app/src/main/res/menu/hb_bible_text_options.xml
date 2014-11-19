@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/versebookmark"
+        app:showAsAction="ifRoom|withText"
+        android:title="set bookmark"
+        android:visible="true"/>
+    <item
+        android:id="@+id/versehighlight"
+        app:showAsAction="ifRoom|withText"
+        android:title="highlight"
+        android:visible="true"/>
+    <item
+        android:id="@+id/verseshare"
+        app:showAsAction="ifRoom|withText"
+        android:title="share verse"
+        android:visible="true"
+        />
+    <item
+        android:id="@+id/versefavourite"
+        app:showAsAction="ifRoom|withText"
+        android:title="favourite"
+        android:visible="true"/>
+    <item
+        android:id="@+id/versecopy"
+        app:showAsAction="ifRoom|withText"
+        android:title="copy"
+        android:visible="true"/>
+
+
+
+
+</menu>

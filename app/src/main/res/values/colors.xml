@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tiffanyblue">#60DFE5</color>
+    <color name="doriangray">#F2F2F2</color>
+    <color name="textdark">#8A8080</color>
+    <color name="actionbg">#A37E53</color>
+    <color name="white">#FFFFFF</color>
+    <color name="lightblack">#535353</color>
+    <color name="transparent">#00000000</color>
+    <color name="tab_highlight">#ff9ecfbf</color>
+
+
+    <color name="purple">#ff834AA6</color>
+    <color name="whitepurple">#fff4eff6</color>
+    <color name="black">#ff000000</color>
+</resources>

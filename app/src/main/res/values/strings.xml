@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App Activity -->
+    <string name="app_name">HopeBook</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Hb Home Activity -->
+    <string name="title_activity_hb_home">Hope Book</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_hb_books_all">HbBooksAll</string>
+    <string name="title_activity_hb__chapter__list">Hb_Chapter_List</string>
+    <string name="title_activity_hb_chapter_list">HbChapterList</string>
+    <string name="title_activity_hb_verses">HbVerses</string>
+    <string name="title_activity_hb_bible_text">HbBibleText</string>
+    <string name="title_activity_hb_search_page">HbSearchPage</string>
+
+    <!-- HB Search Page Activity -->
+
+    <string-array name="searchfilter">
+        <item>Entire Bible</item>
+        <item>New Testament</item>
+        <item>Old testament</item>
+    </string-array>
+
+    <string name="title_activity_hb_search_result">HbSearchResult</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="actionbar_search">Search</string>
+
+    <!-- App Shelve Fragment -->
+    <string name="shelvesearchtxt">Search</string>
+    <string name="shelvehistorytxt">History</string>
+    <string name="shelveversiontxt">Bible Version</string>
+
+    <!-- Bible Version preferences -->
+    <string name="bibleversionpref">com.kfive.hopebook.bibleversion</string>
+    <!-- History Shared Preferences -->
+    <string name="lastverse">com.kfive.hopebook.lastverse</string>
+    <string name="shelvebookmarktxt">bookmarks</string>
+    <string name="title_activity_hb_bookmarks">My Bookmarks</string>
+    <string name="title_activity_hb_colortags">HbColortags</string>
+    <string name="colortagtxt">Color tag</string>
+    <string name="title_activity_hb_more_versions">HbMoreVersions</string>
+
+</resources>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@drawable/tab_bar_background">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/hb_home"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onHome"/>
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:src="@drawable/bookselect"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onBookSelect"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="search text"
+        android:id="@+id/txtsearch"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/purple"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchbox"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="exact text match"
+        android:id="@+id/chkbxexact"
+        android:textSize="10dp"
+        android:singleLine="false"
+        android:layout_marginLeft="20dp"
+        android:textColor="@android:color/darker_gray" />
+
+    <!--<CheckBox-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="match all text"-->
+        <!--android:id="@+id/checkBox2"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:textSize="10dp"-->
+        <!--android:textColor="@android:color/darker_gray" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="search in"
+        android:id="@+id/txtsearchin"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/purple"
+        android:layout_marginTop="10dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:background="@color/whitepurple"
+        android:src="@drawable/hb_search"
+        android:layout_gravity="center_horizontal|right"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_marginRight="30dp"
+        android:onClick="onSearchClick"/>
+
+</LinearLayout>
