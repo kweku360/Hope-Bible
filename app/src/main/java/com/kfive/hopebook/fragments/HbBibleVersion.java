@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kfive.hopebook.R;
@@ -28,6 +30,9 @@ import com.kfive.hopebook.data.VersionHelper;
  */
 public class HbBibleVersion extends DialogFragment {
 
+    //Font
+    private static final String CUSTOM_FONT = "fonts/Dosis-Medium.ttf";
+
 
     public HbBibleVersion() {
         // Required empty public constructor
@@ -37,7 +42,12 @@ public class HbBibleVersion extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Available Bible Versions")
+
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.hb_versiondialog, null,true);
+
+        builder.setView(view)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         bibleVersionListener.onVersionClick(HbBibleVersion.this);
@@ -63,18 +73,18 @@ public class HbBibleVersion extends DialogFragment {
                         SharedPreferences sharedPref = context.getSharedPreferences(
                                 getString(R.string.bibleversionpref), Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putInt("currentversion", checkedItem.getInt(0));
+                        editor.putInt("currentversion", checkedItem.getInt(1));
                         editor.commit();
-
-//
-//                        CharSequence text = checkedItem.getInt(0);
-//                        int duration = Toast.LENGTH_SHORT;
-//
-//                        Toast toast = Toast.makeText(getActivity().getApplicationContext(), text, duration);
-//                        toast.show();
 
                     }
                 });
+
+
+        //lets set some fonts
+        //Lets do some fonts here
+//        Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), CUSTOM_FONT);
+//        TextView tv = (TextView) view.findViewById(R.id.txttitle);
+//        tv.setTypeface(myTypeface);
         return builder.create();
     }
 

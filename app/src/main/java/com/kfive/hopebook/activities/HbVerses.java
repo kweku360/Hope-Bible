@@ -2,6 +2,10 @@ package com.kfive.hopebook.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.kfive.hopebook.R;
@@ -18,7 +23,7 @@ import com.kfive.hopebook.fragments.HbBibleVersion;
 
 import java.util.ArrayList;
 
-public class HbVerses extends ActionBarActivity {
+public class HbVerses extends ActionBarActivity implements HbBibleVersion.HbBibleVersionListener {
     //Extra intent message
     public static final String EXTRA_MESSAGE = "com.kfive.hopebookbete.MESSAGE";
 
@@ -26,7 +31,8 @@ public class HbVerses extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_verses);
-
+        setResourcesColor();
+        getSupportActionBar().setElevation(0);
         showVerses();
     }
 
@@ -126,5 +132,40 @@ public class HbVerses extends ActionBarActivity {
         });
 
 
+    }
+
+    @Override
+    public void onVersionClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onGetMoreVersionsClick(DialogFragment dialog) {
+        Intent intent = new Intent(this, HbMoreVersions.class);
+        startActivity(intent);
+    }
+
+    private String getColorTheme(){
+        SharedPreferences appprefs = getSharedPreferences("com.kfive.hopebook.bible", MODE_PRIVATE);
+        SharedPreferences.Editor ed;
+        String themecolor = appprefs.getString("color", "");
+        if (themecolor.equals("")) {
+            //means no value for theme so we use default redoctober
+            ed = appprefs.edit();
+            ed.putString("color", "#C44244");
+            ed.commit(); //finally we commit
+            themecolor = "#C44244";
+        }
+        return themecolor;
+    }
+
+    private void setResourcesColor(){
+        String color = getColorTheme();
+        LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);
+
+
+        hbmenubar.setBackgroundColor(Color.parseColor(color));
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
     }
 }

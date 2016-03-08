@@ -4,12 +4,58 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hb_menubar" >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton21"
+            android:src="@drawable/hb_homeround"
+            android:layout_marginRight="0dp"
+            android:onClick="onHome"
+            android:background="@color/transparent"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton22"
+            android:src="@drawable/hb_version"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onVersion" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton23"
+            android:src="@drawable/hb_roundbooklist"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onBookSelect" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton24"
+            android:src="@drawable/hb_roundsearch"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onSearch" />
+    </LinearLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:background="@drawable/tab_bar_background">
+        android:background="@drawable/tab_bar_background"
+        android:visibility="gone">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -46,7 +92,7 @@
         android:layout_weight="1" >
 
         <ListView
-            android:id="@android:id/list"
+            android:id="@+id/hb_result"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
 
@@ -70,4 +116,5 @@
         android:textColor="@color/purple"
         android:paddingLeft="20dp"
         android:text="test" />
+
 </LinearLayout>

@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.kfive.hopebook.helpers.DbversionHelper;
-import com.kfive.hopebook.models.Bookmark;
 import com.kfive.hopebook.models.Colortag;
 
 /**
@@ -16,8 +14,8 @@ import com.kfive.hopebook.models.Colortag;
  */
 public class ColortagsHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = DbversionHelper.DATABASE_VERSION;
-    public static final String DATABASE_NAME = DbversionHelper.DATABASE_NAME;
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "HopeBook";
 
     // Bookmarks table name
     private static final String TABLE_COLORTAGS = "colortag";
@@ -40,18 +38,18 @@ public class ColortagsHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_COLORTAGS_TABLE = "CREATE TABLE colortag ( " +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "startverse INTEGER NOT NULL, "+
-                "endverse INTEGER NOT NULL, "+
-                "verse INTEGER NOT NULL, "+
-                "versetext TEXT NOT NULL, "+
-                "fullverse TEXT NOT NULL, "+
-                "timestamp INTEGER NOT NULL, "+
-                "colortag TEXT NOT NULL, "+
-                "userid INTEGER NOT NULL )";
-        //Execute Query to create table
-        db.execSQL(CREATE_COLORTAGS_TABLE);
+//        String CREATE_COLORTAGS_TABLE = "CREATE TABLE colortag ( " +
+//                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "startverse INTEGER NOT NULL, "+
+//                "endverse INTEGER NOT NULL, "+
+//                "verse INTEGER NOT NULL, "+
+//                "versetext TEXT NOT NULL, "+
+//                "fullverse TEXT NOT NULL, "+
+//                "timestamp INTEGER NOT NULL, "+
+//                "colortag TEXT NOT NULL, "+
+//                "userid INTEGER NOT NULL )";
+//        //Execute Query to create table
+//        db.execSQL(CREATE_COLORTAGS_TABLE);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
@@ -201,7 +199,6 @@ public class ColortagsHelper extends SQLiteOpenHelper {
     }
 
     public void deleteColortag(int verse) {
-
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
 

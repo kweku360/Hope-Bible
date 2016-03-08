@@ -53,11 +53,12 @@ public class DbInitSdHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDataBase();
 
         if (dbExist) {
-            SQLiteDatabase db = this.getReadableDatabase();
-            copyDataBase();
-            Log.v("dbcopy","database copied");
-
-            db.close();
+//            this.close();
+//            SQLiteDatabase db = this.getReadableDatabase();
+//            copyDataBase();
+//            Log.v("dbcopy","database copied");
+//
+//            db.close();
         } else {
 
             //By calling this method and empty database will be created into the default system path
@@ -65,6 +66,7 @@ public class DbInitSdHelper extends SQLiteOpenHelper {
 
 
             try {
+
                 SQLiteDatabase db = this.getReadableDatabase();
                 copyDataBase();
                 Log.v("dbcopy","database copied");

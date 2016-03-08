@@ -1,16 +1,16 @@
 package com.kfive.hopebook.data;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.kfive.hopebook.R;
+import com.kfive.hopebook.helpers.DbInitHelper;
 import com.kfive.hopebook.models.BibleVersionKey;
-import com.kfive.hopebook.models.CrossReference;
 import com.kfive.hopebook.models.Version;
 
 /**
@@ -27,6 +27,9 @@ public class VersionHelper extends SQLiteOpenHelper {
     private static final String TABLE_VERSION = "t_kjv";
 
     private static final String TABLE_KEY_VERSION = "key_english";
+
+
+    private SQLiteDatabase SqlDb;
 
     // Books Table Columns names
     private static final String KEY_ID = "id";
@@ -116,15 +119,28 @@ public class VersionHelper extends SQLiteOpenHelper {
     }
 
     public int getVerseCount(int startverse, int endverse){
+
         // 1. build the query SELECT * FROM bible.t_asv WHERE id BETWEEN 01001001 AND 02001005
         String query = "SELECT  count(*) FROM " + TABLE_VERSION  + " WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"'";
+        int count = 0;
 
-        // 2. get reference to writable DB
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        cursor.moveToFirst();
-        int count= cursor.getInt(0);
-        db.close();
+        try
+        {
+            DbInitHelper myDbHelper = new DbInitHelper(APPCONTEXT);
+            myDbHelper.openDataBase();
+            myDbHelper.close();
+            SqlDb = myDbHelper.getWritableDatabase();
+            Cursor cursor = SqlDb.rawQuery(query, null);
+            cursor.moveToFirst();
+            count= cursor.getInt(0);
+            SqlDb.close();
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e("Exception", "open >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+
         return count;
     }
     public BibleVersionKey getCurrentVersion(){

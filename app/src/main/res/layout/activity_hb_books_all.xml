@@ -9,21 +9,21 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/tab_bar_background">
+        android:id="@+id/hb_menubar">
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/imageView"
-            android:src="@drawable/hb_home"
+            android:src="@drawable/hb_homeround"
             android:layout_marginRight="0dp"
-            android:layout_weight="1"
+            android:onClick="onHome"
             android:background="@color/transparent"
-            android:onClick="onHome"/>
+            android:layout_weight="1" />
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/imageView2"
             android:src="@drawable/hb_version"
             android:layout_weight="1"
@@ -32,9 +32,9 @@
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/imageView4"
-            android:src="@drawable/hb_opt"
+            android:src="@drawable/hb_roundbooklist"
             android:layout_weight="1"
             android:background="@color/transparent"/>
 
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView3"
-            android:src="@drawable/hb_search"
+            android:src="@drawable/hb_roundsearch"
             android:layout_weight="1"
             android:background="@color/transparent"
             android:onClick="onSearch"/>
@@ -84,8 +84,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="0dp">
+        android:padding="5dp"
+        android:id="@+id/hb_bottommenu">
 
         <Button
             android:layout_width="wrap_content"
@@ -94,42 +94,40 @@
             android:text="All Books"
             android:id="@+id/allbooks"
             android:layout_weight="1"
-            android:background="@color/purple"
+            android:background="@drawable/ab_buttons"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textColor="@color/white"
             android:textSize="15dp"
-            android:gravity="center_horizontal"
-            android:onClick="onAllbooks"/>
+            android:onClick="onAllbooks"
+            android:layout_margin="2dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Old testament"
+            android:text="Old Testament"
             android:id="@+id/oldtestament"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:background="@color/purple"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:textSize="15dp"
-            android:textColor="@color/white" />
+            android:background="@drawable/ab_buttons"
+            android:textSize="13dp"
+            android:textColor="@color/white"
+            android:layout_margin="2dp"
+            android:onClick="onOldTestament" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="New testament"
+            android:text="New Testament"
             android:id="@+id/newtestament"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:background="@color/purple"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:background="@drawable/ab_buttons"
             android:textIsSelectable="false"
             android:textSize="15dp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:layout_margin="2dp"
+            android:onClick="onNewTestament" />
     </LinearLayout>
 
     <!--<LinearLayout-->

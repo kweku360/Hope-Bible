@@ -11,7 +11,7 @@
     <item
         android:id="@+id/versehighlight"
         app:showAsAction="ifRoom|withText"
-        android:title="highlight"
+        android:title="color tag"
         android:visible="true"/>
     <item
         android:id="@+id/verseshare"

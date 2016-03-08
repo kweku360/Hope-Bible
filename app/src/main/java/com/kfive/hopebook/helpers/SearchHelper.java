@@ -51,7 +51,10 @@ public class SearchHelper extends VersionHelper {
         //this method returns a cursor to be used by the cursor adapter class
 
         // 1. build the query
-        String query = "SELECT  rowid _id,* FROM " + VersionHelper.getTableVersion()  + " WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"' AND t like '%" +searchtext+"%'";
+        String query = "SELECT  id _id,* FROM " + getTableVersion()  + " INNER JOIN "+ TABLE_KEY_VERSION +" ON "+ getTableVersion() +".b = "+ TABLE_KEY_VERSION + ".b WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"' AND t like '%" +searchtext+"%'";
+
+
+       // String query = "SELECT  rowid _id,* FROM " + VersionHelper.getTableVersion()  + " WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"' AND t like '%" +searchtext+"%'";
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();

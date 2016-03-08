@@ -18,16 +18,17 @@ import java.io.OutputStream;
  * copyright
  */
 public class DbInitHelper extends SQLiteOpenHelper {
+    private SQLiteDatabase myDataBase;
 
+    private final Context myContext;
 
     //The Android's default system path of your application database.
+    //private static String DB_PATH = "/data/data/com.kfive.hopebook/databases/";
     private static String DB_PATH = "/data/data/com.kfive.hopebook/databases/";
 
     private static String DB_NAME = "HopeBook";
 
-    private SQLiteDatabase myDataBase;
 
-    private final Context myContext;
 
     /**
      * Constructor
@@ -81,6 +82,7 @@ public class DbInitHelper extends SQLiteOpenHelper {
         SQLiteDatabase checkDB = null;
 
         try {
+
             String myPath = DB_PATH + DB_NAME;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
@@ -110,6 +112,7 @@ public class DbInitHelper extends SQLiteOpenHelper {
         InputStream myInput = myContext.getAssets().open(DB_NAME);
 
         // Path to the just created empty db
+        //String outFileName = DB_PATH + DB_NAME;
         String outFileName = DB_PATH + DB_NAME;
 
         //Open the empty db as the output stream
@@ -120,8 +123,9 @@ public class DbInitHelper extends SQLiteOpenHelper {
         int length;
         while ((length = myInput.read(buffer)) > 0) {
             myOutput.write(buffer, 0, length);
-        }
 
+        }
+        Log.v("Coppied Successfully" , "db Coppied Successfully");
         //Close the streams
         myOutput.flush();
         myOutput.close();
@@ -132,6 +136,7 @@ public class DbInitHelper extends SQLiteOpenHelper {
     public void openDataBase() throws SQLException {
 
         //Open the database
+       // String myPath = DB_PATH + DB_NAME;
         String myPath = DB_PATH + DB_NAME;
         myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 

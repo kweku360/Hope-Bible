@@ -3,17 +3,8 @@ package com.kfive.hopebook.async;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.kfive.hopebook.helpers.SearchHelper;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  * Created by apple on 11/18/14.
@@ -41,6 +32,12 @@ public class SearchResultAsync extends AsyncTask<String,Void,Cursor> {
         if(searchtext[2].equals("Entire Bible")){
             return searchEntireBible(searchtext[0],searchtext[1]);
         }
+        if(searchtext[2].equals("New Testament")){
+            return searchNewTestament(searchtext[0],searchtext[1]);
+        }
+        if(searchtext[2].equals("Old testament")){
+            return searchOldTestament(searchtext[0],searchtext[1]);
+        }
 
            // return searchitem(searchtext[0]);
         return null;
@@ -59,6 +56,18 @@ public class SearchResultAsync extends AsyncTask<String,Void,Cursor> {
             return cursor;
         }
         return null;
+    }
+    private Cursor searchNewTestament(String text, String criteria) {
+
+        SearchHelper searchHelper = new SearchHelper(con);
+        Cursor cursor = searchHelper.searchTestament(text,40001001,66022021);
+        return cursor;
+    }
+    private Cursor searchOldTestament(String text, String criteria) {
+
+        SearchHelper searchHelper = new SearchHelper(con);
+        Cursor cursor = searchHelper.searchTestament(text,1001001,39004006);
+        return cursor;
     }
 
 

@@ -1,169 +1,23 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kfive.hopebook.fragments.HbHomeLanding"
-    android:background="@color/purple">
+    android:orientation="vertical"
+    android:layout_weight="0"
+    tools:context="com.kfive.hopebook.fragments.HBHomeAppShelve"
+    android:background="@color/tiffanyblue">
 
-
-    <!-- TODO: Update blank fragment layout -->
-
-
-    <ImageView
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/fleche_left"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="3dp" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textView6"
+        android:layout_weight="1" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/linearLayout">
+        android:layout_height="200dp"
+        android:id="@+id/listView"
+        android:layout_gravity="bottom" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
-            android:gravity="clip_horizontal">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageButton2"
-                android:background="@drawable/hb_search_btn"
-                android:onClick="onSearchClick"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/shelvesearchtxt"
-                android:id="@+id/shelvesearchtxt"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:gravity="center_horizontal">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageButton"
-                android:background="@drawable/hb_history_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/shelvehistorytxt"
-                android:id="@+id/shelvehistorytxt"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:gravity="center_horizontal">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/bibleversion"
-                android:onClick="onBibleVersionClick"
-
-                android:background="@drawable/hb_version_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/shelveversiontxt"
-                android:id="@+id/shelveversiontxt"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/linearLayout"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
-            android:gravity="clip_horizontal">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnbookmark"
-                android:background="@android:color/transparent"
-                android:src="@drawable/hb_bookmark_btn"
-                android:onClick="onBookmarkClick"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/shelvebookmarktxt"
-                android:id="@+id/shelvebookmarktxt"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
-            android:gravity="clip_horizontal">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btncolortag"
-                android:background="@android:color/transparent"
-                android:src="@drawable/hb_colortag_normal"
-                android:onClick="onColortagClick"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/colortagtxt"
-                android:id="@+id/shelvecolortagtxt"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

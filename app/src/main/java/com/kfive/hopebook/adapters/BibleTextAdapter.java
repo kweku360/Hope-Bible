@@ -1,6 +1,5 @@
 package com.kfive.hopebook.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -57,7 +56,7 @@ public class BibleTextAdapter extends CursorAdapter {
         versenumber.setText(cursor.getString(4));
 
         checkBookmark(context,cursor,bookmarkimg);
-        checkColortag(context,cursor,versetext);
+        //checkColortag(context,cursor,versetext);
 
         // Log.v("BindView", "Bind view called");
       //  Log.v("BindView", verseno);

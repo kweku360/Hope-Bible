@@ -1,16 +1,21 @@
 package com.kfive.hopebook.fragments;
 
 import android.app.Activity;
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.kfive.hopebook.R;
+import com.kfive.hopebook.activities.HbBookmarks;
+import com.kfive.hopebook.activities.HbSearchPage;
+import com.kfive.hopebook.adapters.AppShelveAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +30,10 @@ public class HBHomeAppShelve extends Fragment {
 
     //Font
     private static final String CUSTOM_FONT = "fonts/Signika-Semibold.ttf";
+
+    //list variables
+    private String[] listItems;
+    private ListView sListView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,30 +89,52 @@ public class HBHomeAppShelve extends Fragment {
         // Inflate the layout for this fragment
         View fragmentView =  inflater.inflate(R.layout.fragment_hbhome_app_shelve, container, false);
 
-        //        Create Fonts
-        setCustomFont(fragmentView);
+       //show our Listview
+        listItems =new String[]{"Search", "History","Bible Version","Bookmarks","Color Tags","Notes","Daily Verse","settings","About"};
+        AppShelveAdapter appShelveAdapter = new AppShelveAdapter(listItems,getActivity());
+        sListView = (ListView) fragmentView.findViewById(R.id.listView);
+        sListView.setAdapter(appShelveAdapter);
+        //click event for each item clicked in the listview
+        sListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Log.v("Position",String.valueOf(position));
+                switch (position){
+                    //Search clicked
+                    case 0:{
+                        Intent intent = new Intent(getActivity(), HbSearchPage.class);
+                        startActivity(intent);
+                        break;
 
+                    }
+                    //History clicked
+                    case 1:{
+                        Intent intent = new Intent(getActivity(), HbBookmarks.class);
+                        startActivity(intent);
+                        break;
+                    }
+                    //bible version clicked
+                    case 2:{
+
+                        HbBibleVersion hbBibleVersion = new HbBibleVersion();
+
+                        hbBibleVersion.show(getActivity().getSupportFragmentManager(), "Version Dialog");
+                        break;
+                    }
+                    //Bookmarks clicked
+                    case 3:{
+                        Intent intent = new Intent(getActivity(), HbBookmarks.class);
+                        startActivity(intent);
+                        break;
+                    }
+
+                }
+
+            }
+        });
         return fragmentView;
     }
-
-    public void setCustomFont(View v){
-        //        Create Fonts
-        Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), CUSTOM_FONT);
-
-        TextView shelvehistorytxt = (TextView) v.findViewById(R.id.shelvehistorytxt);
-        TextView shelvesearchtxt = (TextView) v.findViewById(R.id.shelvesearchtxt);
-        TextView shelveversiontxt = (TextView) v.findViewById(R.id.shelveversiontxt);
-        TextView shelvebookmarktxt = (TextView) v.findViewById(R.id.shelvebookmarktxt);
-
-        shelvesearchtxt.setTypeface(myTypeface);
-        shelvehistorytxt.setTypeface(myTypeface);
-        shelveversiontxt.setTypeface(myTypeface);
-        shelvebookmarktxt.setTypeface(myTypeface);
-
-    }
-
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="5dp">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hb_themeddialogicon"
+            android:src="@drawable/hb_theme"
+            android:background="@color/redoctober"
+            android:padding="2dp"
+            android:layout_gravity="center" />
+
+        <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Choose Color Theme"
+            android:id="@+id/txttitle"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/redoctober" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:id="@+id/imageView2"
+            android:layout_marginLeft="20dp"
+            android:background="#ff9EBF6D"
+            android:tag="#ff9EBF6D"
+            android:tint="#ff9EBF6D"
+            android:layout_weight="0.2" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:id="@+id/imageView3"
+            android:layout_marginLeft="15dp"
+            android:background="#ff008AB8"
+            android:tag="#ff008AB8"
+            android:tint="#ff1c1f23"
+            android:layout_weight="0.2" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:id="@+id/imageView4"
+            android:layout_weight="0.20"
+            android:layout_marginLeft="15dp"
+            android:background="#ffCC3333"
+            android:tag="#ffCC3333"
+            android:tint="#ff1c1f23" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:id="@+id/imageView5"
+            android:layout_weight="0.20"
+            android:layout_marginLeft="15dp"
+            android:background="#ff5C3922"
+            android:tag="#ff5C3922"
+            android:tint="#ff1c1f23" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/redoctober"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/hb_lineardialog">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_gravity="center"
+            android:background="@drawable/hb_button"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:id="@+id/hb_diacancel" />
+    </LinearLayout>
+
+</LinearLayout>

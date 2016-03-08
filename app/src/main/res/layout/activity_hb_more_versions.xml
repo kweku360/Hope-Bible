@@ -2,8 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/white">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@drawable/tab_bar_background">
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/hb_home"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onHome"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:src="@drawable/bookselect"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onBookSelect"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:src="@drawable/hb_search"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onSearch"/>
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,12 +55,13 @@
             android:layout_height="fill_parent" />
 
 
-        <ViewStub
-            android:id="@android:id/empty"
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout="@layout/empty" />
+            android:visibility="gone" />
     </FrameLayout>
 
 

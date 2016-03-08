@@ -1,20 +1,28 @@
 package com.kfive.hopebook.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kfive.hopebook.R;
-import com.kfive.hopebook.fragments.HbBibleVersion;
 import com.kfive.hopebook.helpers.SearchHelper;
 
 import java.util.ArrayList;
@@ -30,9 +38,19 @@ public class HbSearchPage extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_search_page);
+        setResourcesColor();
+        getSupportActionBar().setElevation(0);
         setSearchFonts();
         setSelectCriteria();
         setTitle("Search Bible");
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+                INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
     }
 
     private void setSearchFonts() {
@@ -96,25 +114,56 @@ public class HbSearchPage extends ActionBarActivity {
 
 
     public void onSearchClick(View v) {
-        SearchHelper searchHelper = new SearchHelper(this);
-        //first we build another array list to be sent as intent
-        ArrayList<String> itemlist = new ArrayList<String>();
         EditText searchtext = (EditText) findViewById(R.id.searchbox);
-        itemlist.add(searchtext.getText().toString());
+        if(searchtext.getText().toString().equals("")){
+            Toast.makeText(this, "Please Enter Search Text", Toast.LENGTH_SHORT).show();
+        }else {
+            SearchHelper searchHelper = new SearchHelper(this);
+            //first we build another array list to be sent as intent
+            ArrayList<String> itemlist = new ArrayList<String>();
 
-        CheckBox chkbx1 = (CheckBox) findViewById(R.id.chkbxexact);
-        if(chkbx1.isChecked()){
-            itemlist.add("true");
-        }else{itemlist.add("false"); }
+            itemlist.add(searchtext.getText().toString());
 
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
-        String searchcriteria = spinner.getSelectedItem().toString();
-        itemlist.add(searchcriteria);
+            CheckBox chkbx1 = (CheckBox) findViewById(R.id.chkbxexact);
+            if(chkbx1.isChecked()){
+                itemlist.add("true");
+            }else{itemlist.add("false"); }
+
+            Spinner spinner = (Spinner)findViewById(R.id.spinner);
+            String searchcriteria = spinner.getSelectedItem().toString();
+            itemlist.add(searchcriteria);
 
 
-        Intent intent = new Intent(this, HbSearchResult.class);
+            Intent intent = new Intent(this, HbSearchResult.class);
 
-        intent.putStringArrayListExtra(EXTRA_MESSAGE, itemlist);
-        startActivity(intent);
+            intent.putStringArrayListExtra(EXTRA_MESSAGE, itemlist);
+            startActivity(intent);
+        }
+
+    }
+
+    private String getColorTheme(){
+        SharedPreferences appprefs = getSharedPreferences("com.kfive.hopebook.bible", MODE_PRIVATE);
+        SharedPreferences.Editor ed;
+        String themecolor = appprefs.getString("color", "");
+        if (themecolor.equals("")) {
+            //means no value for theme so we use default redoctober
+            ed = appprefs.edit();
+            ed.putString("color", "#C44244");
+            ed.commit(); //finally we commit
+            themecolor = "#C44244";
+        }
+        return themecolor;
+    }
+
+    private void setResourcesColor(){
+        String color = getColorTheme();
+        LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);
+        ImageButton searchbtn = (ImageButton)findViewById(R.id.hb_searchbtn);
+
+        hbmenubar.setBackgroundColor(Color.parseColor(color));
+        searchbtn.setBackgroundColor(Color.parseColor(color));
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
     }
 }

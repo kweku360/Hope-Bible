@@ -1,21 +1,30 @@
 package com.kfive.hopebook.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.kfive.hopebook.R;
 import com.kfive.hopebook.data.BookmarksHelper;
-import com.kfive.hopebook.fragments.HbBibleVersion;
+import com.kfive.hopebook.data.VersionHelper;
+
+import java.util.ArrayList;
 
 public class HbBookmarks extends ActionBarActivity {
+    //Extra intent message
+    public static final String EXTRA_MESSAGE = "com.kfive.hopebookbete.MESSAGE";
+
+    //classes
+    VersionHelper versionHelper = new VersionHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +56,7 @@ public class HbBookmarks extends ActionBarActivity {
         //lets connect to our table and get all bookmarks
         BookmarksHelper bookmarksHelper = new BookmarksHelper(this);
 
-        Cursor cursor = bookmarksHelper.findAll();
+        final Cursor cursor = bookmarksHelper.findAll();
         // For the cursor adapter, specify which columns go into which views
         Log.v("cursorvals", cursor.toString());
 
@@ -61,7 +70,44 @@ public class HbBookmarks extends ActionBarActivity {
                 fromColumns, toViews, 0);
         final ListView listView1 = (ListView) findViewById(android.R.id.list);
         listView1.setAdapter(cAdapter);
+        //making our context available in our listener
+        final Context that = this;
 
+        //click event for each item clicked in the listview
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                //first we get cursor on clicked position
+                Cursor c = (Cursor) listView1.getAdapter().getItem(position);
+                //then we get staret and end verses and parse to versionhelper to get full details on
+                //Log.v("cursor val", String.valueOf(c.getInt(4)));
+                //bible verse
+                Cursor txtcursor = versionHelper.getVerseText(c.getInt(4),c.getInt(5));
+                String bookname = "";
+                String tp = "";
+                String tp1 = "";
+                while(txtcursor.moveToNext()) {
+                  bookname = txtcursor.getString(7);
+                  tp = String.valueOf(txtcursor.getInt(3)-1);
+                  tp1 = String.valueOf(txtcursor.getInt(3));
+                }
+                //now we can create our intent well
+                //first we build another array list to be sent as intent
+                ArrayList<String> itemlist = new ArrayList<String>();
+                itemlist.add(bookname); //0 the book name
+                itemlist.add(String.valueOf(c.getInt(4)));//1 start verse
+                itemlist.add(String.valueOf(c.getInt(5)));//2 end verse
+                itemlist.add(tp);//3 position or target verse
+                itemlist.add(tp1);//4 this is for title purposes more ore less add 1 to the previous listitem value
+
+                Intent intent = new Intent(that, HbBibleText.class);
+
+                intent.putStringArrayListExtra(EXTRA_MESSAGE,itemlist);
+                startActivity(intent);
+
+              }
+        });
     }
 
 

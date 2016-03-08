@@ -11,28 +11,35 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@drawable/tab_bar_background">
+        android:paddingBottom="5dp"
+        android:id="@+id/hb_menubar">
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:src="@drawable/hb_home"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton18"
+            android:src="@drawable/hb_homeround"
             android:layout_marginRight="0dp"
-            android:layout_weight="1"
+            android:onClick="onHome"
             android:background="@color/transparent"
-            android:onClick="onHome"/>
-
+            android:layout_weight="1" />
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView4"
-            android:src="@drawable/bookselect"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton19"
+            android:src="@drawable/hb_version"
+            android:layout_weight="1"
+            android:background="@color/transparent" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton20"
+            android:src="@drawable/hb_roundbooklist"
             android:layout_weight="1"
             android:background="@color/transparent"
-            android:onClick="onBookSelect"/>
+            android:onClick="onBookSelect" />
 
     </LinearLayout>
 
@@ -43,7 +50,7 @@
         android:text="search text"
         android:id="@+id/txtsearch"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/purple"
+        android:textColor="@color/lightblack"
         android:layout_marginTop="20dp" />
 
     <EditText
@@ -54,7 +61,9 @@
         android:layout_marginTop="0dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:imeOptions="actionDone"
+        android:singleLine="true"/>
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -82,7 +91,7 @@
         android:text="search in"
         android:id="@+id/txtsearchin"
         android:layout_marginLeft="20dp"
-        android:textColor="@color/purple"
+        android:textColor="@color/lightblack"
         android:layout_marginTop="10dp" />
 
     <Spinner
@@ -97,13 +106,15 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
-        android:background="@color/whitepurple"
-        android:src="@drawable/hb_search"
-        android:layout_gravity="center_horizontal|right"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:layout_marginRight="30dp"
-        android:onClick="onSearchClick"/>
+        android:id="@+id/hb_searchbtn"
+        android:src="@drawable/hb_roundsearch"
+        android:background="@color/redoctober"
+        android:layout_gravity="center|right"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginRight="40dp"
+        android:onClick="onSearchClick" />
 
 </LinearLayout>

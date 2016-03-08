@@ -1,19 +1,12 @@
 package com.kfive.hopebook.fragments;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.kfive.hopebook.R;
 
@@ -76,54 +69,9 @@ public class HbHomeLanding extends Fragment {
                              Bundle savedInstanceState) {
           // Inflate the layout for this fragment
         View myFrag =  inflater.inflate(R.layout.fragment_hb_home_landing, container, false);
-        //Start View Flipper
-        final ViewFlipper viewFlipper = (ViewFlipper) myFrag.findViewById(R.id.viewFlipper);
-//create an animation object from our animation resource
-        Animation myanim = AnimationUtils.loadAnimation(getActivity(),R.anim.transition_slide_up);
-//binf this animation to our viewflipper
-        viewFlipper.setInAnimation(myanim);
-        //viewFlipper.setOutAnimation(getActivity(), R.anim.transition_slide_down);
-
-        //lets inflate some views into viewFlipper
-        View verseoftheday = inflater.inflate(R.layout.verse_of_the_day, container, false);
-        View lastverse = inflater.inflate(R.layout.last_bible_verse, container, false);
-
-        viewFlipper.addView(verseoftheday);
-        viewFlipper.addView(lastverse);
-
-//lets bind listeners to our animation object
-        myanim.setAnimationListener(new Animation.AnimationListener() {
-            public void onAnimationStart(Animation animation) {
-            }
-
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            public void onAnimationEnd(Animation animation) {
-//                here we can do some stuff
-                Context context = getActivity();
-                SharedPreferences sharedPref = context.getSharedPreferences(
-                        getString(R.string.lastverse), Context.MODE_PRIVATE);
-                String lastversetext = sharedPref.getString("lastversetext", "");
-                String lastfullverse = sharedPref.getString("lastfullverse", "");
-                String lastversion = sharedPref.getString("lastversion", "");
-
-                View v = viewFlipper.getChildAt(1);
-
-                TextView versetext = (TextView) v.findViewById(R.id.lastversetext);
-                TextView fullverse = (TextView) v.findViewById(R.id.lastfullverse);
-
-                versetext.setText(lastversetext);
-                fullverse.setText(lastfullverse + " ( "+ lastversion +" )");
-
-            }
-        });
-
-        viewFlipper.startFlipping();
 
 
-
-        return myFrag;
+         return myFrag;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -168,3 +116,48 @@ public class HbHomeLanding extends Fragment {
     }
 
 }
+//old code
+////Start View Flipper
+//final ViewFlipper viewFlipper = (ViewFlipper) myFrag.findViewById(R.id.viewFlipper);
+////create an animation object from our animation resource
+//Animation myanim = AnimationUtils.loadAnimation(getActivity(), R.anim.transition_slide_up);
+////bind this animation to our viewflipper
+//viewFlipper.setInAnimation(myanim);
+//        //viewFlipper.setOutAnimation(getActivity(), R.anim.transition_slide_down);
+//
+//        //lets inflate some views into viewFlipper
+//        View verseoftheday = inflater.inflate(R.layout.verse_of_the_day, container, false);
+//        View lastverse = inflater.inflate(R.layout.last_bible_verse, container, false);
+//
+//        viewFlipper.addView(verseoftheday);
+//        viewFlipper.addView(lastverse);
+//
+////lets bind listeners to our animation object
+//        myanim.setAnimationListener(new Animation.AnimationListener() {
+//public void onAnimationStart(Animation animation) {
+//        }
+//
+//public void onAnimationRepeat(Animation animation) {
+//        }
+//
+//public void onAnimationEnd(Animation animation) {
+////                here we can do some stuff
+//        Context context = getActivity();
+//        SharedPreferences sharedPref = context.getSharedPreferences(
+//        getString(R.string.lastverse), Context.MODE_PRIVATE);
+//        String lastversetext = sharedPref.getString("lastversetext", "");
+//        String lastfullverse = sharedPref.getString("lastfullverse", "");
+//        String lastversion = sharedPref.getString("lastversion", "");
+//
+//        View v = viewFlipper.getChildAt(1);
+//
+//        TextView versetext = (TextView) v.findViewById(R.id.lastversetext);
+//        TextView fullverse = (TextView) v.findViewById(R.id.lastfullverse);
+//
+//        versetext.setText(lastversetext);
+//        fullverse.setText(lastfullverse + " ( "+ lastversion +" )");
+//
+//        }
+//        });
+//
+//        viewFlipper.startFlipping();

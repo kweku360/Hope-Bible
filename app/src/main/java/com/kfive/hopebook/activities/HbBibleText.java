@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
@@ -15,7 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kfive.hopebook.R;
@@ -53,6 +56,8 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_bible_text);
+        getSupportActionBar().setElevation(0); //hide shadow on actionbar
+        setResourcesColor();//theme method
         // lets settle on one version helper
         versionHelper = new VersionHelper(this);
         //
@@ -161,7 +166,7 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
 
     public void onVersion(View v){
         HbBibleVersion hbBibleVersion = new HbBibleVersion();
-        hbBibleVersion.show(getSupportFragmentManager(),"Version Dialog");
+        hbBibleVersion.show(getSupportFragmentManager(), "Version Dialog");
 
     }
     public void onBookSelect(View v){
@@ -173,28 +178,8 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
         Intent intent = new Intent(this, HbSearchPage.class);
         startActivity(intent);
     }
-    public void onPreviousChapter(View v){
-        int endverse = versionHelper.getVerseId(PREVROWID);
-        String aclone = ""+endverse;
-        aclone = aclone.substring(0,4);
-        aclone = aclone+"001";
-        int startverse = Integer.parseInt(aclone);
-        showBibleText(startverse,endverse);
-        setRowIds();
-        STARTVERSE = startverse;
-        ENDVERSE = endverse;
-    }
-    public void onNextChapter(View v){
-        int startverse = versionHelper.getVerseId(NEXTROWID);
-        String aclone = ""+startverse;
-        aclone = aclone.substring(0,4);
-        aclone = aclone+"999";
-        int endverse = Integer.parseInt(aclone);
-        showBibleText(startverse,endverse);
-        setRowIds();
-        STARTVERSE = startverse;
-        ENDVERSE = endverse;
-    }
+
+
 
     public void addBookmark() {
         Bookmark bookmark = new Bookmark();
@@ -249,13 +234,15 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
     private void showBibleText() {
         Intent intent = getIntent();
         final ArrayList<String> message = intent.getStringArrayListExtra(HbVerses.EXTRA_MESSAGE);
-        STARTVERSE = Integer.parseInt(message.get(1));
-        ENDVERSE = Integer.parseInt(message.get(2));
+
+        STARTVERSE = Integer.parseInt(message.get(1));//requied for other parts of app
+        ENDVERSE = Integer.parseInt(message.get(2));//requied for other parts of app
 
         //we set the title with the version included
         String bibleversion = versionHelper.getCurrentVersion().getAbbreviation();
         setTitle(message.get(0) + " " + message.get(4) + " (" + bibleversion + ")");
 
+        //gets the bible verse test - takes start and end verses as params
         Cursor cursor = versionHelper.getVerseText(Integer.parseInt(message.get(1)), Integer.parseInt(message.get(2)));
 
 //        custom cursor adaptor
@@ -273,28 +260,84 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
         Cursor c = (Cursor) listView1.getAdapter().getItem(position);
         saveVerseToHistory(c,message,bibleversion);
     }
+    //overload method
     private void showBibleText(int startverse,int endverse){
+        STARTVERSE = startverse;//requied for other parts of app
+        ENDVERSE = endverse;//requied for other parts of app
+
+        Log.v("SVERSE", String.valueOf(startverse));
+        Log.v("EVERSE", String.valueOf(endverse));
+
         Cursor cursor = versionHelper.getVerseText(startverse,endverse);
 
        cAdapter.changeCursor(cursor);
        cAdapter.notifyDataSetChanged();
 
+
         //lets set the new title
         Cursor cs = (Cursor)cAdapter.getItem(0);
         String bibleversion = versionHelper.getCurrentVersion().getAbbreviation();
-        setTitle(cs.getString(7)+ " "+ cs.getInt(3)+ " ( " + bibleversion +" )");
+        setTitle(cs.getString(8)+ " "+ cs.getInt(3)+ " ( " + bibleversion +" )");
 
     }
 
     private void setRowIds(){
         //lets get the next chapter start rowid
         Cursor cs = (Cursor)cAdapter.getItem(cAdapter.getCount()-1);
+
         NEXTROWID = cs.getInt(0)+1;
         Log.v("rowid", String.valueOf(NEXTROWID));
 
         //lets get the prev. chapter rowid
         Cursor ct = (Cursor)cAdapter.getItem(0);
         PREVROWID = ct.getInt(0)-1;
+        Log.v("PREVROWID", String.valueOf(PREVROWID));
+
+    }
+
+    public void onNextChapter(View v){
+        try{
+            int startverse = versionHelper.getVerseId(NEXTROWID);
+            Log.v("startverse", String.valueOf(startverse));
+            String aclone = ""+startverse;
+            if(aclone.length() == 7){
+                aclone = aclone.substring(0,4);
+            }else{
+                aclone = aclone.substring(0,5);
+            }
+            aclone = aclone+"999";
+            int endverse = Integer.parseInt(aclone);
+            showBibleText(startverse, endverse);
+            setRowIds();
+           // STARTVERSE = startverse;
+           // ENDVERSE = endverse;
+        }
+        catch (Exception e){
+
+        }
+
+    }
+    public void onPreviousChapter(View v){
+        try {
+            int endverse = versionHelper.getVerseId(PREVROWID);
+            Log.v("PREVROWID", String.valueOf(PREVROWID));
+            Log.v("endverse", String.valueOf(endverse));
+            String aclone = ""+endverse;
+            if(aclone.length() == 7){
+                aclone = aclone.substring(0,4);
+            }else{
+                aclone = aclone.substring(0,5);
+            }
+            aclone = aclone+"001";
+            int startverse = Integer.parseInt(aclone);
+            showBibleText(startverse,endverse);
+            setRowIds();
+//            STARTVERSE = startverse;
+//            ENDVERSE = endverse;
+
+        } catch (Exception e){
+
+        }
 
     }
 
@@ -335,7 +378,7 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
     //Implementing bible version callbacks
     @Override
     public void onVersionClick(DialogFragment dialog) {
-        showBibleText(STARTVERSE,ENDVERSE);
+        showBibleText(STARTVERSE, ENDVERSE);
     }
 
     @Override
@@ -343,4 +386,31 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
         Intent intent = new Intent(this, HbMoreVersions.class);
         startActivity(intent);
         }
+
+    private String getColorTheme(){
+        SharedPreferences appprefs = getSharedPreferences("com.kfive.hopebook.bible", MODE_PRIVATE);
+        SharedPreferences.Editor ed;
+        String themecolor = appprefs.getString("color", "");
+        if (themecolor.equals("")) {
+            //means no value for theme so we use default redoctober
+            ed = appprefs.edit();
+            ed.putString("color", "#C44244");
+            ed.commit(); //finally we commit
+            themecolor = "#C44244";
+        }
+        return themecolor;
+    }
+
+    private void setResourcesColor(){
+        String color = getColorTheme();
+        LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);
+        RelativeLayout hbfooter = (RelativeLayout)findViewById(R.id.hb_footer);
+        // ImageButton searchbtn = (ImageButton)findViewById(R.id.hb_searchbtn);
+
+        hbmenubar.setBackgroundColor(Color.parseColor(color));
+        hbfooter.setBackgroundColor(Color.parseColor(color));
+        // searchbtn.setBackgroundColor(Color.parseColor(color));
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+    }
 }

@@ -9,45 +9,44 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@drawable/tab_bar_background">
+        android:id="@+id/hb_menubar">
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:src="@drawable/hb_home"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton6"
+            android:src="@drawable/hb_homeround"
             android:layout_marginRight="0dp"
-            android:layout_weight="1"
+            android:onClick="onHome"
             android:background="@color/transparent"
-            android:onClick="onHome"/>
+            android:layout_weight="1" />
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton7"
             android:src="@drawable/hb_version"
             android:layout_weight="1"
             android:background="@color/transparent"
-            android:onClick="onVersion"/>
+            android:onClick="onVersion" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton8"
+            android:src="@drawable/hb_roundbooklist"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:onClick="onBookSelect" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView4"
-            android:src="@drawable/bookselect"
+            android:id="@+id/imageButton9"
+            android:src="@drawable/hb_roundsearch"
             android:layout_weight="1"
             android:background="@color/transparent"
-            android:onClick="onBookSelect"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView3"
-            android:src="@drawable/hb_search"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onSearch"/>
+            android:onClick="onSearch" />
     </LinearLayout>
 
     <TextView

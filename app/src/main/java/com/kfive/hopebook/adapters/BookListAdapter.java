@@ -67,8 +67,7 @@ public class BookListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             //manually set the layout inflater
-
-            convertView = appcontext.getLayoutInflater().inflate(R.layout.hb_booksall_list, parent, false);
+             convertView = appcontext.getLayoutInflater().inflate(R.layout.hb_booksall_list, parent, false);
         }
 
 

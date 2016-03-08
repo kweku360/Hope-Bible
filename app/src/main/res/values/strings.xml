@@ -2,7 +2,7 @@
 <resources>
 
     <!-- App Activity -->
-    <string name="app_name">HopeBook</string>
+    <string name="app_name">Hope Bible</string>
     <string name="action_settings">Settings</string>
 
     <!-- Hb Home Activity -->
@@ -34,6 +34,7 @@
 
     <!-- Bible Version preferences -->
     <string name="bibleversionpref">com.kfive.hopebook.bibleversion</string>
+    <string name="biblepref">com.kfive.hopebook.bible</string>
     <!-- History Shared Preferences -->
     <string name="lastverse">com.kfive.hopebook.lastverse</string>
     <string name="shelvebookmarktxt">bookmarks</string>
@@ -41,5 +42,15 @@
     <string name="title_activity_hb_colortags">HbColortags</string>
     <string name="colortagtxt">Color tag</string>
     <string name="title_activity_hb_more_versions">HbMoreVersions</string>
+    <string name="title_activity_test_drawer">TestDrawer</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
 
 </resources>
