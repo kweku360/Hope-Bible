@@ -23,8 +23,8 @@ More Bible Versions
 
 ## Ecourage Developer by DONATING
 
-Hope bible developers need help finacially for more features to be added to this amazing app
-Please feel free to support this cause bu donating here
+Hope bible developers need help financially for more features to be added to this amazing app
+Please feel free to support this cause by donating here
 
 ## Contributing
 

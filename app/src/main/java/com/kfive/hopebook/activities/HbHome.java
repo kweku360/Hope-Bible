@@ -48,6 +48,7 @@ public class HbHome extends ActionBarActivity implements HbBibleVersion.HbBibleV
 
     ThemeRes themeRes;
     TextView lverse;
+    TextView lverseval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +85,20 @@ public class HbHome extends ActionBarActivity implements HbBibleVersion.HbBibleV
         setContentView(R.layout.activity_hb_home);
         HomeImg = (ImageView)findViewById(R.id.hb_bgimg);
         lverse = (TextView)findViewById(R.id.hb_txtlastverse);
+        lverseval = (TextView)findViewById(R.id.hb_lvval);
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), CUSTOM_FONT);
-        lverse.setTextColor(getResources().getColor(R.color.redoctober));
         shuffleImage();
+        getLastVerse();
 
+    }
+
+    private void getLastVerse() {
+        SharedPreferences appprefs = getSharedPreferences(getString(R.string.lastverse), MODE_PRIVATE);
+        SharedPreferences.Editor ed;
+        String verse = appprefs.getString("lastversetext", "");
+        String fullverse = appprefs.getString("lastfullverse", "");
+        lverse.setText("Last Verse - "+fullverse);
+        lverseval.setText(verse);
     }
 
     @Override
@@ -197,10 +208,18 @@ public class HbHome extends ActionBarActivity implements HbBibleVersion.HbBibleV
 
         hbBibleVersion.show(getSupportFragmentManager(),"Version Dialog");
     }
-
     public void onBookmarkClick(View v){
         Intent intent = new Intent(this, HbBookmarks.class);
         startActivity(intent);
+    }
+
+    public void onDailyDevotionClick(View v){
+
+        Toast.makeText(this, "Daily Devotion Coming Soon to Hope Bible", Toast.LENGTH_LONG).show();
+    }
+    public void onDailyVerseClick(View v){
+
+        Toast.makeText(this, "Daily Verse Coming Soon to Hope Bible", Toast.LENGTH_LONG).show();
     }
 
     //function runs when themes is clicked

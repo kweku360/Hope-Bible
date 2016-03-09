@@ -125,7 +125,8 @@
                     android:src="@drawable/hb_dailyverse"
                     android:background="@color/redoctober"
                     android:padding="10dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:onClick="onDailyVerseClick" />
 
                 <com.kfive.hopebook.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
@@ -150,7 +151,8 @@
                     android:src="@drawable/hb_meditation"
                     android:background="@color/redoctober"
                     android:padding="10dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:onClick="onDailyDevotionClick" />
 
                 <com.kfive.hopebook.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
@@ -175,7 +177,8 @@
                     android:background="@color/redoctober"
                     android:padding="10dp"
                     android:layout_gravity="center"
-                    android:scaleType="center" />
+                    android:scaleType="center"
+                    android:onClick="onSearchClick" />
 
                 <com.kfive.hopebook.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
@@ -208,7 +211,8 @@
                     android:src="@drawable/hb_bookmark"
                     android:background="@color/redoctober"
                     android:padding="10dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:onClick="onBookmarkClick" />
 
                 <com.kfive.hopebook.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"

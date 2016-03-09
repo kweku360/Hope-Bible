@@ -52,5 +52,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
+    <string name="send_to">Share Bible Verse</string>
 
 </resources>

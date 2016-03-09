@@ -9,28 +9,14 @@
         android:title="set bookmark"
         android:visible="true"/>
     <item
-        android:id="@+id/versehighlight"
-        app:showAsAction="ifRoom|withText"
-        android:title="color tag"
-        android:visible="true"/>
-    <item
         android:id="@+id/verseshare"
         app:showAsAction="ifRoom|withText"
         android:title="share verse"
         android:visible="true"
         />
     <item
-        android:id="@+id/versefavourite"
-        app:showAsAction="ifRoom|withText"
-        android:title="favourite"
-        android:visible="true"/>
-    <item
         android:id="@+id/versecopy"
         app:showAsAction="ifRoom|withText"
         android:title="copy"
         android:visible="true"/>
-
-
-
-
 </menu>

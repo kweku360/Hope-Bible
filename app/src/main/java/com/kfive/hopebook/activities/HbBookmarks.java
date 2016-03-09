@@ -2,7 +2,10 @@ package com.kfive.hopebook.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
@@ -11,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.kfive.hopebook.R;
@@ -29,14 +33,39 @@ public class HbBookmarks extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hb_bookmarks);
 
+        getSupportActionBar().setElevation(0);
+        setContentView(R.layout.activity_hb_bookmarks);
+        setResourcesColor();
         showAllBookmarks();
     }
 
     //Custom methods
 
     //events
+
+    private String getColorTheme(){
+        SharedPreferences appprefs = getSharedPreferences("com.kfive.hopebook.bible", MODE_PRIVATE);
+        SharedPreferences.Editor ed;
+        String themecolor = appprefs.getString("color", "");
+        if (themecolor.equals("")) {
+            //means no value for theme so we use default redoctober
+            ed = appprefs.edit();
+            ed.putString("color", "#C44244");
+            ed.commit(); //finally we commit
+            themecolor = "#C44244";
+        }
+        return themecolor;
+    }
+
+    private void setResourcesColor(){
+        String color = getColorTheme();
+        LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);
+
+        hbmenubar.setBackgroundColor(Color.parseColor(color));
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+    }
 
     public void onHome(View v){
         Intent intent = new Intent(this, HbHome.class);
@@ -111,25 +140,25 @@ public class HbBookmarks extends ActionBarActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.hb_bookmarks, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.hb_bookmarks, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 }

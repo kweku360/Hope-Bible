@@ -110,13 +110,20 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
     public boolean onMenuItemClick(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.versehighlight:
-                HbColortag hbColortag = new HbColortag();
-
-                hbColortag.show(getSupportFragmentManager(),"Color Tag Dialog");
-                return true;
+//            case R.id.versehighlight:
+//                HbColortag hbColortag = new HbColortag();
+//
+//                hbColortag.show(getSupportFragmentManager(),"Color Tag Dialog");
+//                return true;
             case R.id.versecopy:
                 Log.v("pop", "comedy");
+                return true;
+            case R.id.verseshare:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
                 return true;
             case R.id.versebookmark:
                 //Here also we use the visibility to know whether to remove or add
@@ -187,7 +194,7 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
         bookmark.setEndverse(ENDVERSE);
         bookmark.setVerse(SELECTEDITEM.getInt(1));
         bookmark.setVersetext(SELECTEDITEM.getString(5));
-        String fullverse = SELECTEDITEM.getString(7) + " " + SELECTEDITEM.getInt(3) + " : " + SELECTEDPOSITION;
+        String fullverse = SELECTEDITEM.getString(8) + " " + SELECTEDITEM.getInt(3) + " : " + SELECTEDPOSITION;
         bookmark.setFullverse(fullverse);
         bookmark.setTimestamp(System.currentTimeMillis() / 1000);
         bookmark.setColortag("NULL");
