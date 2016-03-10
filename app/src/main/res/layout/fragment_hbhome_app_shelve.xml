@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_weight="0"
-    tools:context="com.kfive.hopebook.fragments.HBHomeAppShelve"
+    tools:context="com.kfive.hopebible.fragments.HBHomeAppShelve"
     android:background="@color/tiffanyblue">
 
     <TextView

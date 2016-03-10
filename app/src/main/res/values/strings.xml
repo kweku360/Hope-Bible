@@ -33,10 +33,10 @@
     <string name="shelveversiontxt">Bible Version</string>
 
     <!-- Bible Version preferences -->
-    <string name="bibleversionpref">com.kfive.hopebook.bibleversion</string>
-    <string name="biblepref">com.kfive.hopebook.bible</string>
+    <string name="bibleversionpref">com.kfive.hopebible.bibleversion</string>
+    <string name="biblepref">com.kfive.hopebible.bible</string>
     <!-- History Shared Preferences -->
-    <string name="lastverse">com.kfive.hopebook.lastverse</string>
+    <string name="lastverse">com.kfive.hopebible.lastverse</string>
     <string name="shelvebookmarktxt">bookmarks</string>
     <string name="title_activity_hb_bookmarks">My Bookmarks</string>
     <string name="title_activity_hb_colortags">HbColortags</string>

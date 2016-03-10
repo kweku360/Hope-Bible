@@ -15,7 +15,7 @@
         android:background="@color/redoctober"
         android:id="@+id/hb_hometop">
 
-        <com.kfive.hopebook.uihelpers.AppTextViewCeporro
+        <com.kfive.hopebible.uihelpers.AppTextViewCeporro
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-        <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+        <com.kfive.hopebible.uihelpers.AppTextViewRoboto
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -76,7 +76,7 @@
             android:id="@+id/hb_txtlastverse"
             android:textColor="@color/redoctober" />
 
-        <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+        <com.kfive.hopebible.uihelpers.AppTextViewRoboto
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -128,7 +128,7 @@
                     android:layout_gravity="center"
                     android:onClick="onDailyVerseClick" />
 
-                <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+                <com.kfive.hopebible.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
@@ -154,7 +154,7 @@
                     android:layout_gravity="center"
                     android:onClick="onDailyDevotionClick" />
 
-                <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+                <com.kfive.hopebible.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
@@ -180,7 +180,7 @@
                     android:scaleType="center"
                     android:onClick="onSearchClick" />
 
-                <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+                <com.kfive.hopebible.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
@@ -214,7 +214,7 @@
                     android:layout_gravity="center"
                     android:onClick="onBookmarkClick" />
 
-                <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+                <com.kfive.hopebible.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
@@ -241,7 +241,7 @@
                     android:layout_gravity="center"
                     android:onClick="onThemeClick" />
 
-                <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+                <com.kfive.hopebible.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
@@ -267,7 +267,7 @@
                     android:layout_gravity="center"
                     android:scaleType="center" />
 
-                <com.kfive.hopebook.uihelpers.AppTextViewRoboto
+                <com.kfive.hopebible.uihelpers.AppTextViewRoboto
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
@@ -289,7 +289,7 @@
     <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
     <!--android:paddingTop="@dimen/activity_vertical_margin"-->
     <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
-    <!--tools:context="com.kfive.hopebook.activities.hbHome">-->
+    <!--tools:context="hopebiblee.activities.hbHome">-->
 
     <!--<Button-->
         <!--android:layout_width="wrap_content"-->

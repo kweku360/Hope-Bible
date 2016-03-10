@@ -4,7 +4,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
     defaultConfig {
-        applicationId "com.kfive.hopebook"
+        applicationId "com.kfive.hopebible"
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 1

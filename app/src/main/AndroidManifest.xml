@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kfive.hopebook" >
+    package="com.kfive.hopebible" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,7 +15,7 @@
         android:icon="@drawable/hb_bible_btn_normal">
 
         <activity
-            android:name=".activities.HbHome"
+            android:name="com.kfive.hopebible.activities.HbHome"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,43 +24,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.HbBooksAll"
+            android:name="com.kfive.hopebible.activities.HbBooksAll"
             android:label="@string/title_activity_hb_books_all" >
         </activity>
         <activity
-            android:name=".activities.HbChapterList"
+            android:name="com.kfive.hopebible.activities.HbChapterList"
             android:label="@string/title_activity_hb_chapter_list" >
         </activity>
         <activity
-            android:name=".activities.HbVerses"
+            android:name="com.kfive.hopebible.activities.HbVerses"
             android:label="@string/title_activity_hb_verses" >
         </activity>
         <activity
-            android:name=".activities.HbBibleText"
+            android:name="com.kfive.hopebible.activities.HbBibleText"
             android:label="@string/title_activity_hb_bible_text" >
         </activity>
         <activity
-            android:name=".activities.HbSearchPage"
+            android:name="com.kfive.hopebible.activities.HbSearchPage"
             android:label="@string/title_activity_hb_search_page" >
         </activity>
         <activity
-            android:name=".activities.HbSearchResult"
+            android:name="com.kfive.hopebible.activities.HbSearchResult"
             android:label="@string/title_activity_hb_search_result" >
         </activity>
         <activity
-            android:name=".activities.HbBookmarks"
+            android:name="com.kfive.hopebible.activities.HbBookmarks"
             android:label="@string/title_activity_hb_bookmarks" >
         </activity>
         <activity
-            android:name=".activities.HbColortags"
+            android:name="com.kfive.hopebible.activities.HbColortags"
             android:label="@string/title_activity_hb_colortags" >
         </activity>
         <activity
-            android:name=".activities.HbMoreVersions"
+            android:name="com.kfive.hopebible.activities.HbMoreVersions"
             android:label="@string/title_activity_hb_more_versions" >
         </activity>
         <activity
-            android:name=".activities.TestDrawer"
+            android:name="com.kfive.hopebible.activities.TestDrawer"
             android:label="@string/title_activity_test_drawer" >
         </activity>
     </application>
