@@ -42,7 +42,7 @@ public class HbBibleVersion extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
+        final Context con = this.getContext();
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.hb_versiondialog, null,true);
@@ -55,7 +55,8 @@ public class HbBibleVersion extends DialogFragment {
                 })
                 .setNeutralButton("Get More Versions", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                      bibleVersionListener.onGetMoreVersionsClick(HbBibleVersion.this);
+                      //bibleVersionListener.onGetMoreVersionsClick(HbBibleVersion.this);
+                      Toast.makeText(con, "More Bible Versions Coming Soon to Hope Bible", Toast.LENGTH_LONG).show();
                     }
                 })
 

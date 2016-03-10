@@ -108,7 +108,9 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        String fullverse = SELECTEDITEM.getString(8) + " " + SELECTEDITEM.getInt(3) + " : " + SELECTEDPOSITION;
 
+        String shareVal = fullverse+"\n"+SELECTEDITEM.getString(5)+"\n\n" + "powered by Hope bible goo.gl/wirjnf";
         switch (item.getItemId()) {
 //            case R.id.versehighlight:
 //                HbColortag hbColortag = new HbColortag();
@@ -121,7 +123,7 @@ public class HbBibleText extends ActionBarActivity implements PopupMenu.OnMenuIt
             case R.id.verseshare:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.putExtra(Intent.EXTRA_TEXT,shareVal);
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
                 return true;

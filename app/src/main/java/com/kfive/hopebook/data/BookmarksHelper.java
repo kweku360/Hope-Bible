@@ -162,7 +162,12 @@ public class BookmarksHelper extends SQLiteOpenHelper {
         //this qury converts the unit time stamp into into date readable string
         //String query = "SELECT  rowid _id,strftime(\"%m-%d-%Y\", timestamp, 'unixepoch') AS tstamp,* FROM " + TABLE_BOOKMARKS;
 
-        String query = "select rowid _id,case strftime('%m',  timestamp, 'unixepoch') when '01' then 'January' when '02' then 'Febuary' when '03' then 'March' when '04' then 'April' when '05' then 'May' when '06' then 'June' when '07' then 'July' when '08' then 'August' when '09' then 'September' when '10' then 'October' when '11' then 'November' when '12' then 'December' else '' end as month,strftime(\"%d, %Y\", timestamp, 'unixepoch') AS tstamp,* FROM " +  TABLE_BOOKMARKS;
+        String query = "select rowid _id,case strftime('%m',  timestamp," +
+                " 'unixepoch') when '01' then 'January' when '02' then 'Febuary' when '03' then 'March' " +
+                "when '04' then 'April' when '05' then 'May' when '06' then 'June' when '07' then 'July' when " +
+                "'08' then 'August' when '09' then 'September' when '10' then 'October' when '11' then 'November'" +
+                " when '12' then 'December' else '' end as month,strftime(\"%d, %Y\", timestamp, 'unixepoch') AS" +
+                " tstamp,* FROM " +  TABLE_BOOKMARKS +" ORDER BY ID DESC";
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
