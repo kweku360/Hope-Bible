@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Spannable;
@@ -24,12 +25,13 @@ import android.widget.TextView;
 import com.kfive.hopebible.R;
 import com.kfive.hopebible.async.SearchResultAsync;
 import com.kfive.hopebible.data.VersionHelper;
+import com.kfive.hopebible.fragments.HbBibleVersion;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HbSearchResult extends ActionBarActivity {
+public class HbSearchResult extends ActionBarActivity implements HbBibleVersion.HbBibleVersionListener {
     SearchResultAsync searchResultAsync = new SearchResultAsync(this);
     ProgressBar pg;
     //Extra intent message
@@ -198,6 +200,12 @@ public class HbSearchResult extends ActionBarActivity {
         Intent intent = new Intent(this, HbBooksAll.class);
         startActivity(intent);
     }
+    public void onVersion(View v){
+        HbBibleVersion hbBibleVersion = new HbBibleVersion();
+        hbBibleVersion.show(getSupportFragmentManager(), "Version Dialog");
+
+    }
+
     public void onSearch(View v){
         //start the intent and search activity
         Intent intent = new Intent(this, HbSearchPage.class);
@@ -227,6 +235,17 @@ public class HbSearchResult extends ActionBarActivity {
        // searchbtn.setBackgroundColor(Color.parseColor(color));
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+    }
+
+    @Override
+    public void onVersionClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onGetMoreVersionsClick(DialogFragment dialog) {
+        Intent intent = new Intent(this, HbMoreVersions.class);
+        startActivity(intent);
     }
 
 //    private void searchEntireBible(String searchtext) {
