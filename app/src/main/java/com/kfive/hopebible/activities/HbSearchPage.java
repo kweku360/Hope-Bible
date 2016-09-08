@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -23,11 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kfive.hopebible.R;
+import com.kfive.hopebible.fragments.HbBibleVersion;
 import com.kfive.hopebible.helpers.SearchHelper;
 
 import java.util.ArrayList;
 
-public class HbSearchPage extends ActionBarActivity {
+public class HbSearchPage extends AppCompatActivity implements HbBibleVersion.HbBibleVersionListener {
 
     //Extra intent message
     public static final String EXTRA_MESSAGE = "com.kfive.hopebible.MESSAGE";
@@ -111,6 +114,11 @@ public class HbSearchPage extends ActionBarActivity {
         Intent intent = new Intent(this, HbBooksAll.class);
         startActivity(intent);
     }
+    public void onVersion(View v){
+        HbBibleVersion hbBibleVersion = new HbBibleVersion();
+        hbBibleVersion.show(getSupportFragmentManager(), "Version Dialog");
+
+    }
 
 
     public void onSearchClick(View v) {
@@ -165,5 +173,16 @@ public class HbSearchPage extends ActionBarActivity {
         searchbtn.setBackgroundColor(Color.parseColor(color));
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+    }
+
+    @Override
+    public void onVersionClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onGetMoreVersionsClick(DialogFragment dialog) {
+        Intent intent = new Intent(this, HbMoreVersions.class);
+        startActivity(intent);
     }
 }

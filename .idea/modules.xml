@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HopeBook.iml" filepath="$PROJECT_DIR$/HopeBook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Hope-Bible.iml" filepath="$PROJECT_DIR$/Hope-Bible.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

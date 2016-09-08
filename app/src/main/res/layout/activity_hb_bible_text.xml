@@ -38,7 +38,8 @@
             android:id="@+id/imageButton16"
             android:src="@drawable/hb_roundbooklist"
             android:layout_weight="1"
-            android:background="@color/transparent" />
+            android:background="@color/transparent"
+            android:onClick="onBookSelect" />
 
         <ImageButton
             android:layout_width="wrap_content"

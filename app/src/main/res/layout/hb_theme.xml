@@ -103,8 +103,8 @@
             android:background="@drawable/hb_button"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:textColor="@color/white"
-            android:id="@+id/hb_diacancel" />
+            android:id="@+id/hb_diacancel"
+            android:textColor="#000000" />
     </LinearLayout>
 
 </LinearLayout>
