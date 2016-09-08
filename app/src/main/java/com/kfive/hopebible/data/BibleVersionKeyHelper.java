@@ -3,6 +3,7 @@ package com.kfive.hopebible.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -139,9 +140,34 @@ public class BibleVersionKeyHelper extends SQLiteOpenHelper {
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-
+        String[] matrixcolumns = {"_id","id","version","tableref"};
+        MatrixCursor matrixCursor = new MatrixCursor(matrixcolumns);
+        int count = 0;
+        //loop through cursor to find installed bible tables
+        while (cursor.moveToNext()) {
+            //this codes takes the initial cursul and transforms it into a matrixcursor with just two values
+            String tablename = cursor.getString(cursor.getColumnIndex("tableref"));
+            String versionname = cursor.getString(cursor.getColumnIndex("version"));
+            String id = cursor.getString(0);
+            if(tableExists(tablename) == 1){
+                count++;
+            matrixCursor.addRow(new String[]{String.valueOf(count),id,versionname,tablename});
+            }
+        }
         // return cursor
-        return cursor;
+        return matrixCursor;
+    }
+
+    public int tableExists(String tablename){
+//        String query = "SELECT count(*) FROM "+TABLE_BIBLE_VERSION_KEY+" WHERE type='table' AND name='"+tablename+"'";
+        String query = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='"+tablename+"'";
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        int count= c.getInt(0);
+        c.close();
+        return count;
     }
 
     public int update(BibleVersionKey bibleVersionKey) {

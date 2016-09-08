@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
@@ -30,22 +29,24 @@ import com.kfive.hopebible.data.ColortagsHelper;
 import com.kfive.hopebible.data.VersionHelper;
 import com.kfive.hopebible.fragments.HbBibleVersion;
 import com.kfive.hopebible.fragments.HbColortag;
-import com.kfive.hopebible.helpers.BibleHelper;
 import com.kfive.hopebible.models.Bookmark;
 import com.kfive.hopebible.models.Colortag;
 
 import java.util.ArrayList;
 
-public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener,HbColortag.HbColortagListener,HbBibleVersion.HbBibleVersionListener {
+public class HbBibleTextoriginal extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener,HbColortag.HbColortagListener,HbBibleVersion.HbBibleVersionListener {
 
 
     private Cursor SELECTEDITEM;
     private int SELECTEDPOSITION;
     private View SELECTEDVIEW;
+    private int NEXTROWID = 1;
+    private int PREVROWID = 1;
 
+    private  int STARTVERSE;
+    private  int ENDVERSE;
     VersionHelper versionHelper;
-    BibleHelper bibleHelper;
-    int[] verses;
+
     //init
     BibleTextAdapter cAdapter;
 
@@ -58,12 +59,11 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
         setContentView(R.layout.activity_hb_bible_text);
         getSupportActionBar().setElevation(0); //hide shadow on actionbar
         setResourcesColor();//theme method
+
         // lets settle on one version helper
         versionHelper = new VersionHelper(this);
-        bibleHelper = new BibleHelper();
-        //
-        verses = bibleHelper.getStartEndVerses(getIntent());
-        showBibleText(verses[0],verses[1]);
+
+        showBibleText();
 
         //register list item click
         bibletextClick();
@@ -87,7 +87,7 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
                 view.setSelected(true);
                 //Setup popup menu
                 popupMenu = new PopupMenu(that, view);
-                popupMenu.setOnMenuItemClickListener(HbBibleText.this);
+                popupMenu.setOnMenuItemClickListener(HbBibleTextoriginal.this);
 
                 popupMenu.inflate(R.menu.hb_bible_text_options);
 
@@ -97,6 +97,7 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
                     //if its bookmarked then we set our popupmenu to remove bookmark
                     popupMenu.getMenu().findItem(R.id.versebookmark).setTitle("remove bookmark");
                 }else {
+
                     //if its NOT bookmarked we set our popupmenu to SET bookmark
                     popupMenu.getMenu().findItem(R.id.versebookmark).setTitle("set bookmark");
                 }
@@ -110,7 +111,8 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         String fullverse = SELECTEDITEM.getString(8) + " " + SELECTEDITEM.getInt(3) + " : " + SELECTEDPOSITION;
-        String shareVal = fullverse+"\n"+SELECTEDITEM.getString(5)+"\n\n" + "Hope Bible";
+
+        String shareVal = fullverse+"\n"+SELECTEDITEM.getString(5)+"\n\n" + "powered by Hope bible goo.gl/wirjnf";
         switch (item.getItemId()) {
 //            case R.id.versehighlight:
 //                HbColortag hbColortag = new HbColortag();
@@ -161,6 +163,8 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
         if (id == R.id.action_settings) {
             return true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -185,12 +189,13 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
         Intent intent = new Intent(this, HbSearchPage.class);
         startActivity(intent);
     }
-    public void addBookmark() {
-        int[] verses = bibleHelper.getStartEndVerses(getIntent());//gets the start - end verses
 
+
+
+    public void addBookmark() {
         Bookmark bookmark = new Bookmark();
-        bookmark.setStartverse(verses[0]);
-        bookmark.setEndverse(verses[1]);
+        bookmark.setStartverse(STARTVERSE);
+        bookmark.setEndverse(ENDVERSE);
         bookmark.setVerse(SELECTEDITEM.getInt(1));
         bookmark.setVersetext(SELECTEDITEM.getString(5));
         String fullverse = SELECTEDITEM.getString(8) + " " + SELECTEDITEM.getInt(3) + " : " + SELECTEDPOSITION;
@@ -212,53 +217,158 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
         //finally we set the visibility of the view
         ImageView bookmarkimg = (ImageView) SELECTEDVIEW.findViewById(R.id.bookmarkimg);
         bookmarkimg.setVisibility(View.GONE);
+
     }
 
+    private void addColortag(int verse,String colorCode) {
+        Colortag colortag = new Colortag();
+        colortag.setStartverse(STARTVERSE);
+        colortag.setEndverse(ENDVERSE);
+        colortag.setVerse(SELECTEDITEM.getInt(1));
+        colortag.setVersetext(SELECTEDITEM.getString(5));
+        String fullverse = SELECTEDITEM.getString(7) + " " + SELECTEDITEM.getInt(3) + " : " + SELECTEDPOSITION;
+        colortag.setFullverse(fullverse);
+        colortag.setTimestamp(System.currentTimeMillis() / 1000);
+        colortag.setColortag(colorCode);
+        colortag.setUserid(23432);
+
+        ColortagsHelper colortagsHelper = new ColortagsHelper(this);
+        Colortag ctag = colortagsHelper.findOne(verse);
+        if(ctag == null){
+            colortagsHelper.addOne(colortag);
+        }else{
+            ctag.setColortag(colorCode);
+            colortagsHelper.update(ctag);
+        }
+    }
+
+    private void showBibleText() {
+        Intent intent = getIntent();
+        final ArrayList<String> message = intent.getStringArrayListExtra(HbVerses.EXTRA_MESSAGE);
+
+        STARTVERSE = Integer.parseInt(message.get(1));//requied for other parts of app
+        ENDVERSE = Integer.parseInt(message.get(2));//requied for other parts of app
+
+        //we set the title with the version included
+        String bibleversion = versionHelper.getCurrentVersion().getAbbreviation();
+        setTitle(message.get(0) + " " + message.get(4) + " (" + bibleversion + ")");
+
+        //gets the bible verse test - takes start and end verses as params
+        Cursor cursor = versionHelper.getVerseText(Integer.parseInt(message.get(1)), Integer.parseInt(message.get(2)));
+
+//        custom cursor adaptor
+        cAdapter = new BibleTextAdapter(this, cursor, 0);
+
+        final ListView listView1 = (ListView) findViewById(android.R.id.list);
+        listView1.setAdapter(cAdapter);
+        listView1.setSelection(Integer.parseInt(message.get(3)));
+        Log.v("Hope Bible textmsg", message.get(3));
+
+      //this function sets up prev. and next items
+        setRowIds();
+        //this function saves the last visited verse to history
+        int position = Integer.parseInt(message.get(3));
+        Cursor c = (Cursor) listView1.getAdapter().getItem(position);
+        Log.v("DB utils",  DatabaseUtils.dumpCursorToString(c));
+       ;
+        //here we check if cursor is null or empty - fixes bookmarks issue)
+//        if((c != null) && (c.getCount() > 0)){
+//            saveVerseToHistory(c,message,bibleversion);
+//        }
+
+    }
     //overload method
     private void showBibleText(int startverse,int endverse){
+        STARTVERSE = startverse;//requied for other parts of app
+        ENDVERSE = endverse;//requied for other parts of app
+
+        Log.v("SVERSE", String.valueOf(startverse));
+        Log.v("EVERSE", String.valueOf(endverse));
+
         Cursor cursor = versionHelper.getVerseText(startverse,endverse);
-        if(cAdapter == null){
-            //we are dealing with an intent service
-            //custom cursor adaptor
-            cAdapter = new BibleTextAdapter(this, cursor, 0);
-            final ListView listView1 = (ListView) findViewById(android.R.id.list);
-            listView1.setAdapter(cAdapter);
-            listView1.setSelection(verses[2]);
-        }
 
        cAdapter.changeCursor(cursor);
        cAdapter.notifyDataSetChanged();
 
-        setTitle();
+
+        //lets set the new title
+        Cursor cs = (Cursor)cAdapter.getItem(0);
+        String bibleversion = versionHelper.getCurrentVersion().getAbbreviation();
+        setTitle(cs.getString(8)+ " "+ cs.getInt(3)+ " ( " + bibleversion +" )");
+
+    }
+
+    private void setRowIds(){
+        //lets get the next chapter start rowid
+        Cursor cs = (Cursor)cAdapter.getItem(cAdapter.getCount()-1);
+
+        NEXTROWID = cs.getInt(0)+1;
+        Log.v("rowid", String.valueOf(NEXTROWID));
+
+        //lets get the prev. chapter rowid
+        Cursor ct = (Cursor)cAdapter.getItem(0);
+        PREVROWID = ct.getInt(0)-1;
+        Log.v("PREVROWID", String.valueOf(PREVROWID));
+
     }
 
     public void onNextChapter(View v){
-            int rowid =  bibleHelper.getRowId(cAdapter,"next"); //now this gets us the next row id
-            int startverse = versionHelper.getVerseId(rowid);
-            int[] verses = bibleHelper.prevNextChapter("next",startverse);
-            showBibleText(verses[0],verses[1]);
+        try{
+            int startverse = versionHelper.getVerseId(NEXTROWID);
+            Log.v("startverse", String.valueOf(startverse));
+            String aclone = ""+startverse;
+            if(aclone.length() == 7){
+                aclone = aclone.substring(0,4);
+            }else{
+                aclone = aclone.substring(0,5);
+            }
+            aclone = aclone+"999";
+            int endverse = Integer.parseInt(aclone);
+            showBibleText(startverse, endverse);
+            setRowIds();
+           // STARTVERSE = startverse;
+           // ENDVERSE = endverse;
+        }
+        catch (Exception e){
+
+        }
 
     }
     public void onPreviousChapter(View v){
-             int rowid =  bibleHelper.getRowId(cAdapter,"prev"); //now this gets us the prev row id
-            int endverse = versionHelper.getVerseId(rowid);
-            int[] verses = bibleHelper.prevNextChapter("prev",endverse);
-            showBibleText(verses[0],verses[1]);
+        try {
+            int endverse = versionHelper.getVerseId(PREVROWID);
+            Log.v("PREVROWID", String.valueOf(PREVROWID));
+            Log.v("endverse", String.valueOf(endverse));
+            String aclone = ""+endverse;
+            if(aclone.length() == 7){
+                aclone = aclone.substring(0,4);
+            }else{
+                aclone = aclone.substring(0,5);
+            }
+            aclone = aclone+"001";
+            int startverse = Integer.parseInt(aclone);
+            showBibleText(startverse,endverse);
+            setRowIds();
+//            STARTVERSE = startverse;
+//            ENDVERSE = endverse;
+
+        } catch (Exception e){
+
+        }
+
     }
 
-    private void setTitle(){
-        Cursor cs = (Cursor)cAdapter.getItem(0);
-        //lets set the new title
-        String bibleversion = versionHelper.getCurrentVersion().getAbbreviation();
-        setTitle(cs.getString(8)+ " "+ cs.getInt(3)+ " ( " + bibleversion +" )");
-    }
 
-    private void saveVerseToHistory(String fullverse,String txt,String version) {
+    private void saveVerseToHistory(Cursor c,ArrayList<String> msg,String version) {
+        int position = Integer.parseInt(msg.get(3)) + 1;
+        String fullverse = msg.get(0) + " " + msg.get(4) + " : " + position;
+        //                        lets save in shared preff
+
         Context context = this;
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.lastverse), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("lastversetext", txt);
+        editor.putString("lastversetext", c.getString(5));
         editor.putString("lastfullverse", fullverse);
         editor.putString("lastversion", version);
         editor.commit();
@@ -271,8 +381,10 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
         TextView versetext = (TextView) SELECTEDVIEW.findViewById(R.id.versetext);
         versetext.setBackgroundColor(Color.parseColor(ColorCode));
         dialog.dismiss();
+        
         //Lets add entry to colortag table or update if it exists
-       // addColortag(SELECTEDITEM.getInt(1),ColorCode);
+        addColortag(SELECTEDITEM.getInt(1),ColorCode);
+
     }
 
     @Override
@@ -283,8 +395,7 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
     //Implementing bible version callbacks
     @Override
     public void onVersionClick(DialogFragment dialog) {
-        bibleHelper.getStartEndVerses(getIntent()); //this is called just in case
-        showBibleText(bibleHelper.getStartv(), bibleHelper.getEndv());
+        showBibleText(STARTVERSE, ENDVERSE);
     }
 
     @Override
@@ -320,26 +431,3 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
     }
 }
-
-
-//    private void addColortag(int verse,String colorCode) {
-//        Colortag colortag = new Colortag();
-//        colortag.setStartverse(STARTVERSE);
-//        colortag.setEndverse(ENDVERSE);
-//        colortag.setVerse(SELECTEDITEM.getInt(1));
-//        colortag.setVersetext(SELECTEDITEM.getString(5));
-//        String fullverse = SELECTEDITEM.getString(7) + " " + SELECTEDITEM.getInt(3) + " : " + SELECTEDPOSITION;
-//        colortag.setFullverse(fullverse);
-//        colortag.setTimestamp(System.currentTimeMillis() / 1000);
-//        colortag.setColortag(colorCode);
-//        colortag.setUserid(23432);
-//
-//        ColortagsHelper colortagsHelper = new ColortagsHelper(this);
-//        Colortag ctag = colortagsHelper.findOne(verse);
-//        if(ctag == null){
-//            colortagsHelper.addOne(colortag);
-//        }else{
-//            ctag.setColortag(colorCode);
-//            colortagsHelper.update(ctag);
-//        }
-//    }

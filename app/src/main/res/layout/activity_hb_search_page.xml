@@ -30,7 +30,8 @@
             android:id="@+id/imageButton19"
             android:src="@drawable/hb_version"
             android:layout_weight="1"
-            android:background="@color/transparent" />
+            android:background="@color/transparent"
+            android:onClick="onVersion" />
 
         <ImageButton
             android:layout_width="wrap_content"

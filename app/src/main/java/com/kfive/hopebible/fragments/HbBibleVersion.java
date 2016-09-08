@@ -70,7 +70,8 @@ public class HbBibleVersion extends DialogFragment {
                         SharedPreferences sharedPref = context.getSharedPreferences(
                                 getString(R.string.bibleversionpref), Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putInt("currentversion", checkedItem.getInt(1));
+                        editor.putInt("currentversion", checkedItem.getInt(1)); //this gets the value on the db table id
+                        editor.putInt("currentversioncount", checkedItem.getInt(0)); //this gets the count value
                         editor.commit();
 
                     }
@@ -86,7 +87,7 @@ public class HbBibleVersion extends DialogFragment {
     }
 
   public Cursor getInstalledBibleversions(){
-      //lets connect to out table and get the verse count
+      //letsget all the bible versions
       BibleVersionKeyHelper bibleVersionKeyHelper = new BibleVersionKeyHelper(getActivity().getApplicationContext());
       Cursor cursor = bibleVersionKeyHelper.findAll();
 
@@ -109,7 +110,7 @@ public class HbBibleVersion extends DialogFragment {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.bibleversionpref), Context.MODE_PRIVATE);
         int defaultValue = 1;
-        int version = sharedPref.getInt("currentversion", defaultValue);
+        int version = sharedPref.getInt("currentversioncount", defaultValue);
         return version -1;
     }
 

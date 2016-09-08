@@ -107,8 +107,7 @@ public class HbBookmarks extends ActionBarActivity {
                                     long id) {
                 //first we get cursor on clicked position
                 Cursor c = (Cursor) listView1.getAdapter().getItem(position);
-                //then we get staret and end verses and parse to versionhelper to get full details on
-                //Log.v("cursor val", String.valueOf(c.getInt(4)));
+                //then we get start and end verses and parse to version helper to get full details on
                 //bible verse
                 Cursor txtcursor = versionHelper.getVerseText(c.getInt(4),c.getInt(5));
                 String bookname = "";
