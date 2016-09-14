@@ -108,13 +108,17 @@ public class DbInitHelper extends SQLiteOpenHelper {
      * This is done by transfering bytestream.
      */
     private void copyDataBase() throws IOException {
+        UtilityHelper utilityHelper = new UtilityHelper(myContext);
+        String destfolder = myContext.getFilesDir().getAbsolutePath();
+        //here we copy tasv for test purposes only
+        if (utilityHelper.assetCopy(destfolder, "tasv.db") == true){
+            Log.v("Copy", "tasv");
+        }
 
         //a few changes here and there
         //first copy zip to app folder
-        UtilityHelper utilityHelper = new UtilityHelper(myContext);
-        String destfolder = myContext.getFilesDir().getAbsolutePath();
-      //  String destfolder = Environment.getExternalStorageDirectory().getPath();
         if (utilityHelper.assetCopy(destfolder, DB_NAME + ".zip") == true) {
+            //then unzip
             if (utilityHelper.unpackZip(destfolder + File.separator, DB_NAME + ".zip") == true) {
 
 

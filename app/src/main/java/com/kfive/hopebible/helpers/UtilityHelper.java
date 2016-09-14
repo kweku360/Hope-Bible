@@ -84,7 +84,6 @@ public class UtilityHelper {
 
                 FileOutputStream fout = new FileOutputStream(path + filename);
 
-                // cteni zipu a zapis
                 while ((count = zis.read(buffer)) != -1)
                 {
                     fout.write(buffer, 0, count);
