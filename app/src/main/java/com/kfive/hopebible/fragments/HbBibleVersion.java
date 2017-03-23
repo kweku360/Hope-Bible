@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kfive.hopebible.R;
+import com.kfive.hopebible.activities.HbMoreVersions;
 import com.kfive.hopebible.data.BibleVersionKeyHelper;
 
 /**
@@ -39,6 +41,7 @@ public class HbBibleVersion extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final Context con = this.getContext();
+
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.hb_versiondialog, null,true);
@@ -51,8 +54,10 @@ public class HbBibleVersion extends DialogFragment {
                 })
                 .setNeutralButton("Get More Versions", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                      //bibleVersionListener.onGetMoreVersionsClick(HbBibleVersion.this);
-                      Toast.makeText(con, "More Bible Versions Coming Soon to Hope Bible", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(con, HbMoreVersions.class);
+                        startActivity(intent);
+                     // bibleVersionListener.onGetMoreVersionsClick(HbBibleVersion.this);
+                     // Toast.makeText(con, "More Bible Versions Coming Soon to Hope Bible", Toast.LENGTH_LONG).show();
                     }
                 })
 

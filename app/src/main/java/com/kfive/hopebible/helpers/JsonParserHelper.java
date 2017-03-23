@@ -23,13 +23,13 @@ public class JsonParserHelper {
                 JSONObject js = moreversions.getJSONObject(i);
 
                 MoreBibleVersions mb = new MoreBibleVersions();
-                mb.setVersion(js.getString("version"));
-                mb.setLanguage(js.getString("language"));
-                mb.setLicense(js.getString("license"));
-                mb.setPrice(js.getString("price"));
-                mb.setDlink(js.getString("dlink"));
-                mb.setAbbreviation(js.getString("abreviation"));
-                mb.setInfo_url(js.getString("infourl"));
+//                mb.setVersion(js.getString("version"));
+//                mb.setLanguage(js.getString("language"));
+//                mb.setLicense(js.getString("license"));
+//                mb.setPrice(js.getString("price"));
+//                mb.setDlink(js.getString("dlink"));
+//                mb.setAbbreviation(js.getString("abreviation"));
+//                mb.setInfo_url(js.getString("infourl"));
 
                 moreBibleVersions.add(mb);
             }

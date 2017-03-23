@@ -8,9 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.kfive.hopebible.R;
-import com.parse.ParseObject;
+import com.kfive.hopebible.models.MoreBibleVersions;
 
-import java.util.List;
+import io.realm.RealmResults;
 
 /**
  * Created by apple on 11/15/14.
@@ -21,17 +21,17 @@ public class MoreVersionsAdapter extends BaseAdapter {
     //Font
     private static final String CUSTOM_FONT = "fonts/Dosis-Medium.ttf";
     //Lets declare our data array (mdata)
-    private List<ParseObject> mData;
+    private RealmResults<MoreBibleVersions> mData;
     private Activity appcontext;
 
     //class constructor initializing data
-    public MoreVersionsAdapter(List<ParseObject> data, Activity context) {
+    public MoreVersionsAdapter(RealmResults<MoreBibleVersions> data, Activity context) {
         mData = data;
         appcontext = context;
     }
 
     //Methods
-    public void changeData(List<ParseObject> data) {
+    public void changeData(RealmResults<MoreBibleVersions> data) {
         mData = data;
         notifyDataSetChanged(); // method from BaseAdapter class
     }
@@ -43,7 +43,7 @@ public class MoreVersionsAdapter extends BaseAdapter {
     }
 
     @Override
-    public ParseObject getItem(int position) {
+    public MoreBibleVersions getItem(int position) {
         return mData.get(0);
     }
 
@@ -62,22 +62,18 @@ public class MoreVersionsAdapter extends BaseAdapter {
             convertView = appcontext.getLayoutInflater().inflate(R.layout.hb_moreversions_list, parent, false);
         }
 
-        ParseObject vData = mData.get(position);
+        MoreBibleVersions vData = mData.get(position);
 
         Typeface myTypeface = Typeface.createFromAsset(appcontext.getAssets(), CUSTOM_FONT);
 
-        TextView txtabbrev = (TextView) convertView.findViewById(R.id.txtabbreviation);
-        TextView txtversion = (TextView) convertView.findViewById(R.id.txtversion);
-        TextView txtlicense = (TextView) convertView.findViewById(R.id.txtlicence);
+        TextView txtversion = (TextView) convertView.findViewById(R.id.hb_versionname);
+        TextView txtDownload = (TextView) convertView.findViewById(R.id.hb_downloadcount);
 
-        txtabbrev.setText(vData.getString("abbreviation"));
-        txtabbrev.setTypeface(myTypeface);
+        txtversion.setText(vData.getVersionname());
+        txtversion.setTypeface(myTypeface);
 
-        txtversion.setText(vData.getString("version")+" ("+vData.getString("language")+")");
-        txtabbrev.setTypeface(myTypeface);
-
-        txtlicense.setText("Licence : "+vData.getString("license"));
-        txtlicense.setTypeface(myTypeface);
+        txtDownload.setText(vData.getDownloadcount() + " Downloads");
+        txtDownload.setTypeface(myTypeface);
 
         return convertView;
     }
