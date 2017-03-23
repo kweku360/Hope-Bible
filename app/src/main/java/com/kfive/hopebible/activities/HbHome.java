@@ -274,8 +274,8 @@ public class HbHome extends ActionBarActivity implements HbBibleVersion.HbBibleV
 
     @Override
     public void onGetMoreVersionsClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, HbMoreVersions.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, HbMoreVersions.class);
+//        startActivity(intent);
     }
 
 //    //more overides

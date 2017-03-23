@@ -1,0 +1,20 @@
+<resources>
+    <style name="HopeBibleTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">@color/redPrimary</item>
+        <item name="colorPrimaryDark">@color/redPrimaryDark</item>
+        <item name="colorAccent">@color/redPrimaryAccent</item>
+        <item name="android:colorBackground">@color/redPrimaryLight</item>
+        <item name="android:colorForeground">@color/redPrimary</item>
+        <item name="android:textColorPrimary">@color/redSecondaryText</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+    </style>
+    <style name="HopeBibleTheme.Blue" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">@color/bluePrimary</item>
+        <item name="colorPrimaryDark">@color/bluePrimaryDark</item>
+        <item name="colorAccent">@color/bluePrimaryAccent</item>
+        <item name="android:colorBackground">@color/bluePrimaryLight</item>
+        <item name="android:colorForeground">@color/bluePrimary</item>
+        <item name="android:textColorPrimary">@color/blueSecondaryText</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+    </style>
+</resources>

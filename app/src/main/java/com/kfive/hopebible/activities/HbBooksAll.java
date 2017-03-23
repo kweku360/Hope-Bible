@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +29,7 @@ import com.kfive.hopebible.fragments.HbBibleVersion;
 import java.util.ArrayList;
 
 
-public class HbBooksAll extends ActionBarActivity implements HbBibleVersion.HbBibleVersionListener {
+public class HbBooksAll extends AppCompatActivity implements HbBibleVersion.HbBibleVersionListener {
 
     //Extra intent message
     public static final String EXTRA_MESSAGE = "com.kfive.hopebible.MESSAGE";
@@ -45,9 +47,13 @@ public class HbBooksAll extends ActionBarActivity implements HbBibleVersion.HbBi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_books_all);
-        //settheme color
-        setResourcesColor();
-        getSupportActionBar().setElevation(0);
+
+         //settheme color //not in use
+        //setResourcesColor(); //not in use
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
         //show booklist
         bookListAdapter = new BookListAdapter(BookList.getBibleBooks(),this);
         //get listview of activity
@@ -84,36 +90,36 @@ public class HbBooksAll extends ActionBarActivity implements HbBibleVersion.HbBi
     }
 
 
-    private void tabMethods() {
-        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        // Specify that tabs should be displayed in the action bar.
-        actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
-
-        // Create a tab listener that is called when the user changes tabs.
-        //not used anymore
-        android.support.v7.app.ActionBar.TabListener tabListener = new android.support.v7.app.ActionBar.TabListener() {
-            public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
-                // show the given tab by calling the given function
-
-            }
-
-            public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
-                // hide the given tab
-            }
-
-            public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
-                // probably ignore this event
-            }
-        };
-
-        // Add 3 tabs, specifying the tab's text and TabListener
-     //   actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_home).setTabListener(tabListener));
-       // actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_version).setTabListener(tabListener));
-       // actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_search).setTabListener(tabListener));
-
-
-}
-
+//    private void tabMethods() {
+//        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+//        // Specify that tabs should be displayed in the action bar.
+//        actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
+//
+//        // Create a tab listener that is called when the user changes tabs.
+//        //not used anymore
+//        android.support.v7.app.ActionBar.TabListener tabListener = new android.support.v7.app.ActionBar.TabListener() {
+//            public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
+//                // show the given tab by calling the given function
+//
+//            }
+//
+//            public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
+//                // hide the given tab
+//            }
+//
+//            public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
+//                // probably ignore this event
+//            }
+//        };
+//
+//        // Add 3 tabs, specifying the tab's text and TabListener
+//     //   actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_home).setTabListener(tabListener));
+//       // actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_version).setTabListener(tabListener));
+//       // actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_search).setTabListener(tabListener));
+//
+//
+//}
+//
 
 
     @Override
@@ -224,10 +230,12 @@ public class HbBooksAll extends ActionBarActivity implements HbBibleVersion.HbBi
 
     @Override
     public void onGetMoreVersionsClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, HbMoreVersions.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, HbMoreVersions.class);
+//        startActivity(intent);
     }
 
+
+//deprecated
     private String getColorTheme(){
         SharedPreferences appprefs = getSharedPreferences("com.kfive.hopebible.bible", MODE_PRIVATE);
         SharedPreferences.Editor ed;
@@ -241,7 +249,7 @@ public class HbBooksAll extends ActionBarActivity implements HbBibleVersion.HbBi
         }
         return themecolor;
     }
-
+//deprecated
     private void setResourcesColor(){
         String color = getColorTheme();
         LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);

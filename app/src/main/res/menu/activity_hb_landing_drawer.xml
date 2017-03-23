@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_read"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Read Bible" />
+        <item android:title="Daily Devotion"
+            android:id="@+id/nav_devotion"
+            android:icon="@drawable/hb_meditation" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/hb_searchmain"
+            android:title="Search" />
+        <item
+            android:id="@+id/nav_bookmarks"
+            android:icon="@drawable/hb_bookmark"
+            android:title="Bookmarks" />
+        <item
+            android:id="@+id/nav_theme"
+            android:icon="@drawable/hb_theme"
+            android:title="Themes" />
+    </group>
+
+    <item android:title="Communicate"
+        android:visible="false"
+        android:enabled="false">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

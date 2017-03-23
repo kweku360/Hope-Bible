@@ -244,8 +244,8 @@ public class HbSearchResult extends ActionBarActivity implements HbBibleVersion.
 
     @Override
     public void onGetMoreVersionsClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, HbMoreVersions.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, HbMoreVersions.class);
+//        startActivity(intent);
     }
 
 //    private void searchEntireBible(String searchtext) {

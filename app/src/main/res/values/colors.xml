@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#900</color>
-    <color name="colorPrimaryDark">#900</color>
-    <color name="colorAccent">#900</color>
+    <!--<color name="colorPrimary">#900</color>-->
+    <!--<color name="colorPrimaryDark">#900</color>-->
+    <!--<color name="colorAccent">#900</color>-->
     <color name="tiffanyblue">#60DFE5</color>
     <color name="doriangray">#F2F2F2</color>
     <color name="textdark">#8A8080</color>
@@ -12,9 +12,26 @@
     <color name="transparent">#00000000</color>
     <color name="tab_highlight">#ff9ecfbf</color>
     <color name="lightgray">#999999</color>
+    <color name="redoctober">#F44336</color>
 
     <!--Theme Colors-->
-    <color name="redoctober">#C44244</color>
+    <!--RED THEME-->
+    <color name="redPrimary">#F44336</color>
+    <color name="redPrimaryDark">#D32F2F</color>
+    <color name="redPrimaryLight">#FFCDD2</color>
+    <color name="redPrimaryAccent">#FF5722</color>
+    <color name="redPrimaryText">#212121</color>
+    <color name="redSecondaryText">#757575</color>
+    <color name="redBorder">#BDBDBD</color>  
+    
+    <!--Blue THEME-->
+    <color name="bluePrimary">#2196F3</color>
+    <color name="bluePrimaryDark">#1976D2</color>
+    <color name="bluePrimaryLight">#BBDEFB</color>
+    <color name="bluePrimaryAccent">#00BCD4</color>
+    <color name="bluePrimaryText">#212121</color>
+    <color name="blueSecondaryText">#757575</color>
+    <color name="blueBorder">#BDBDBD</color>
 
     <color name="purple">#ff834AA6</color>
     <color name="whitepurple">#fff4eff6</color>

@@ -53,5 +53,6 @@
 
     <string name="action_example">Example action</string>
     <string name="send_to">Share Bible Verse</string>
+    <string name="title_activity_dummy"></string>
 
 </resources>

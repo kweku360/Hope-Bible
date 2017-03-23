@@ -69,7 +69,7 @@ public class HbTheme extends DialogFragment {
             @Override
             public void onClick(View arg0) {
                 String colorcode = (String)imageView2.getTag();
-                themeListener.onThemeClick(HbTheme.this, colorcode);
+                themeListener.onThemeClick(HbTheme.this, "HopeBibleTheme");
             }
         });
         final ImageView imageView3 = (ImageView) cusdia.findViewById(R.id.imageView3);
@@ -79,7 +79,7 @@ public class HbTheme extends DialogFragment {
             public void onClick(View arg0) {
 
                 String colorcode = (String)imageView3.getTag();
-                themeListener.onThemeClick(HbTheme.this, colorcode);
+                themeListener.onThemeClick(HbTheme.this, "HopeBibleThemeBlue");
             }
         });
         final ImageView imageView4 = (ImageView) cusdia.findViewById(R.id.imageView4);

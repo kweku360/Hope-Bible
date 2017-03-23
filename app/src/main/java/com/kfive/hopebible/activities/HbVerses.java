@@ -141,8 +141,8 @@ public class HbVerses extends ActionBarActivity implements HbBibleVersion.HbBibl
 
     @Override
     public void onGetMoreVersionsClick(DialogFragment dialog) {
-        Intent intent = new Intent(this, HbMoreVersions.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, HbMoreVersions.class);
+//        startActivity(intent);
     }
 
     private String getColorTheme(){

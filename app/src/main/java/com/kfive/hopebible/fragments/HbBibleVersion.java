@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.kfive.hopebible.R;
-import com.kfive.hopebible.activities.HbMoreVersions;
+//import com.kfive.hopebible.activities.HbMoreVersions;
 import com.kfive.hopebible.data.BibleVersionKeyHelper;
 
 /**
@@ -54,8 +54,8 @@ public class HbBibleVersion extends DialogFragment {
                 })
                 .setNeutralButton("Get More Versions", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(con, HbMoreVersions.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(con, HbMoreVersions.class);
+//                        startActivity(intent);
                      // bibleVersionListener.onGetMoreVersionsClick(HbBibleVersion.this);
                      // Toast.makeText(con, "More Bible Versions Coming Soon to Hope Bible", Toast.LENGTH_LONG).show();
                     }
