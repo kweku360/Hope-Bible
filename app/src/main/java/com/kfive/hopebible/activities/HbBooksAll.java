@@ -25,8 +25,11 @@ import com.kfive.hopebible.Pojo.BookList;
 import com.kfive.hopebible.R;
 import com.kfive.hopebible.adapters.BookListAdapter;
 import com.kfive.hopebible.fragments.HbBibleVersion;
+import com.kfive.hopebible.helpers.ThemeHelper;
 
 import java.util.ArrayList;
+
+import mehdi.sakout.fancybuttons.FancyButton;
 
 
 public class HbBooksAll extends AppCompatActivity implements HbBibleVersion.HbBibleVersionListener {
@@ -45,6 +48,8 @@ public class HbBooksAll extends AppCompatActivity implements HbBibleVersion.HbBi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int themeid = new ThemeHelper(getApplicationContext()).getTheme();
+        setTheme(themeid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_books_all);
 
@@ -62,64 +67,13 @@ public class HbBooksAll extends AppCompatActivity implements HbBibleVersion.HbBi
         listView1.setAdapter(bookListAdapter);
 
         //Lets set title to action bar
-        setTitle("Hope Bible");
-       // ((TextView)getSupportActionBar().getCustomView().findViewById(R.id.mytext)).setText("new title");
+        getSupportActionBar().setTitle("Hope Bible");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //register list item click
         bibleBookClick();
-
-       // tabMethods();
-
-        bookTabs();
-
     }
-
-    private void bookTabs() {
-
-        Typeface myTypeface = Typeface.createFromAsset(getAssets(), CUSTOM_FONT);
-
-        TextView allbooks = (TextView) findViewById(R.id.allbooks);
-        TextView booksnew = (TextView) findViewById(R.id.oldtestament);
-        TextView booksold = (TextView) findViewById(R.id.newtestament);
-        allbooks.setTypeface(myTypeface);
-        booksnew.setTypeface(myTypeface);
-        booksold.setTypeface(myTypeface);
-
-
-
-    }
-
-
-//    private void tabMethods() {
-//        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-//        // Specify that tabs should be displayed in the action bar.
-//        actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
-//
-//        // Create a tab listener that is called when the user changes tabs.
-//        //not used anymore
-//        android.support.v7.app.ActionBar.TabListener tabListener = new android.support.v7.app.ActionBar.TabListener() {
-//            public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
-//                // show the given tab by calling the given function
-//
-//            }
-//
-//            public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
-//                // hide the given tab
-//            }
-//
-//            public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, FragmentTransaction ft) {
-//                // probably ignore this event
-//            }
-//        };
-//
-//        // Add 3 tabs, specifying the tab's text and TabListener
-//     //   actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_home).setTabListener(tabListener));
-//       // actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_version).setTabListener(tabListener));
-//       // actionBar.addTab(actionBar.newTab().setIcon(R.drawable.hb_search).setTabListener(tabListener));
-//
-//
-//}
-//
 
 
     @Override
@@ -146,7 +100,7 @@ public class HbBooksAll extends AppCompatActivity implements HbBibleVersion.HbBi
     //Events
 
     public void onHome(View v){
-        Intent intent = new Intent(this, HbHome.class);
+        Intent intent = new Intent(this, HbLanding.class);
         startActivity(intent);
     }
 
@@ -166,13 +120,13 @@ public class HbBooksAll extends AppCompatActivity implements HbBibleVersion.HbBi
         bookListAdapter.changeData(BookList.getBibleBooks());
         listView1.setSelection(0);
         //Change button state
-        Button allBooks = (Button) findViewById(R.id.allbooks);
-        Button oldTestament = (Button) findViewById(R.id.oldtestament);
-        Button newTestament = (Button) findViewById(R.id.newtestament);
+        FancyButton allBooks = (FancyButton) findViewById(R.id.allbooks);
+        FancyButton oldTestament = (FancyButton) findViewById(R.id.oldtestament);
+        FancyButton newTestament = (FancyButton) findViewById(R.id.newtestament);
 
-        allBooks.setBackgroundResource(R.drawable.ab_btnpressed);
-        oldTestament.setBackgroundResource(R.drawable.ab_buttons);
-        newTestament.setBackgroundResource(R.drawable.ab_buttons);
+        allBooks.setBackgroundColor(Color.parseColor("#4Dffffff"));
+        oldTestament.setBackgroundColor(Color.TRANSPARENT);
+        newTestament.setBackgroundColor(Color.TRANSPARENT);
 
     }
 
@@ -180,13 +134,13 @@ public class HbBooksAll extends AppCompatActivity implements HbBibleVersion.HbBi
         bookListAdapter.changeData(BookList.getNewTestament());
         listView1.setSelection(0);
         //Change button state
-        Button allBooks = (Button) findViewById(R.id.allbooks);
-        Button oldTestament = (Button) findViewById(R.id.oldtestament);
-        Button newTestament = (Button) findViewById(R.id.newtestament);
+        FancyButton allBooks = (FancyButton) findViewById(R.id.allbooks);
+        FancyButton oldTestament = (FancyButton) findViewById(R.id.oldtestament);
+        FancyButton newTestament = (FancyButton) findViewById(R.id.newtestament);
 
-        newTestament.setBackgroundResource(R.drawable.ab_btnpressed);
-        oldTestament.setBackgroundResource(R.drawable.ab_buttons);
-        allBooks.setBackgroundResource(R.drawable.ab_buttons);
+        newTestament.setBackgroundColor(Color.parseColor("#4Dffffff"));
+        oldTestament.setBackgroundColor(Color.TRANSPARENT);
+        allBooks.setBackgroundColor(Color.TRANSPARENT);
 
     }
     public void onOldTestament(View v){
@@ -194,13 +148,13 @@ public class HbBooksAll extends AppCompatActivity implements HbBibleVersion.HbBi
         bookListAdapter.changeData(BookList.getOldTestament());
         listView1.setSelection(0);
         //Change button state
-        Button allBooks = (Button) findViewById(R.id.allbooks);
-        Button oldTestament = (Button) findViewById(R.id.oldtestament);
-        Button newTestament = (Button) findViewById(R.id.newtestament);
+        FancyButton allBooks = (FancyButton) findViewById(R.id.allbooks);
+        FancyButton oldTestament = (FancyButton) findViewById(R.id.oldtestament);
+        FancyButton newTestament = (FancyButton) findViewById(R.id.newtestament);
 
-        oldTestament.setBackgroundResource(R.drawable.ab_btnpressed);
-        newTestament.setBackgroundResource(R.drawable.ab_buttons);
-        allBooks.setBackgroundResource(R.drawable.ab_buttons);
+        oldTestament.setBackgroundColor(Color.parseColor("#4Dffffff"));
+        newTestament.setBackgroundColor(Color.TRANSPARENT);
+        allBooks.setBackgroundColor(Color.TRANSPARENT);
 
 
     }

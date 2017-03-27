@@ -54,5 +54,9 @@
     <string name="action_example">Example action</string>
     <string name="send_to">Share Bible Verse</string>
     <string name="title_activity_dummy"></string>
+    <string name="search_hint">Search Bible</string>
+
+    <!--Download Version Activity-->
+    <string name="versiontxt">Choose Bible Version To Download</string>
 
 </resources>

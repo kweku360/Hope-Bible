@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_read"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_devices"
             android:title="Read Bible" />
         <item android:title="Daily Devotion"
             android:id="@+id/nav_devotion"

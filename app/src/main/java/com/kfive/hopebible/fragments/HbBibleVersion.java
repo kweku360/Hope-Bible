@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import com.kfive.hopebible.R;
 //import com.kfive.hopebible.activities.HbMoreVersions;
+import com.kfive.hopebible.activities.HbMore;
 import com.kfive.hopebible.data.BibleVersionKeyHelper;
+import com.kfive.hopebible.helpers.UtilityHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,8 +56,8 @@ public class HbBibleVersion extends DialogFragment {
                 })
                 .setNeutralButton("Get More Versions", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                        Intent intent = new Intent(con, HbMoreVersions.class);
-//                        startActivity(intent);
+                        Intent intent = new Intent(con, HbMore.class);
+                        startActivity(intent);
                      // bibleVersionListener.onGetMoreVersionsClick(HbBibleVersion.this);
                      // Toast.makeText(con, "More Bible Versions Coming Soon to Hope Bible", Toast.LENGTH_LONG).show();
                     }
@@ -70,24 +72,14 @@ public class HbBibleVersion extends DialogFragment {
                         ListView lw = ((AlertDialog)dialog).getListView();
                         Cursor checkedItem = (Cursor)lw.getAdapter().getItem(lw.getCheckedItemPosition());
 
-//                        lets save in shared preff
-                        Context context = getActivity();
-                        SharedPreferences sharedPref = context.getSharedPreferences(
-                                getString(R.string.bibleversionpref), Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putInt("currentversion", checkedItem.getInt(1)); //this gets the value on the db table id
-                        editor.putInt("currentversioncount", checkedItem.getInt(0)); //this gets the count value
-                        editor.commit();
+                        //lets save in shared preff
+                        //lets save in shared preff
+                        UtilityHelper utilityHelper = new UtilityHelper(con);
+                        utilityHelper.SaveCurrentVersion(checkedItem);
 
                     }
                 });
 
-
-        //lets set some fonts
-        //Lets do some fonts here
-//        Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), CUSTOM_FONT);
-//        TextView tv = (TextView) view.findViewById(R.id.txttitle);
-//        tv.setTypeface(myTypeface);
         return builder.create();
     }
 

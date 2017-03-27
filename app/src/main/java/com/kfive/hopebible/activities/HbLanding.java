@@ -29,39 +29,14 @@ import java.io.IOException;
 public class HbLanding extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,HbTheme.HbThemeListener{
 
-    boolean schduledRestart = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int themeid = new ThemeHelper(getApplicationContext()).getTheme();
         setTheme(themeid);
         super.onCreate(savedInstanceState);
 
-        //lets create our db if it doesnt exist
-        //TODO MOVE to SPLASH SCREEN.
-        //TODO  Check storage space to set database location
-        //TODO Init Database in Splash Activity
-        DbInitHelper initDb = new DbInitHelper(this);
-        try {
-            initDb.createDataBase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-
-            initDb.openDataBase();
-
-        } catch (Exception sqle) {
-
-            Log.v("SQL Error", sqle.toString());
-
-        }
-
         setContentView(R.layout.activity_hb_landing);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setElevation(0);
-        }
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -126,7 +101,7 @@ public class HbLanding extends AppCompatActivity
             Toast.makeText(this, "Daily Devotion Coming Soon to Hope Bible", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_search) {
-            Intent intent = new Intent(this, HbSearchPage.class);
+            Intent intent = new Intent(this, HbSearchResult.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_bookmarks) {
@@ -155,5 +130,10 @@ public class HbLanding extends AppCompatActivity
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
 
+    }
+    public void onReadBible(View v){
+//        start bible selector intent and activity
+        Intent intent = new Intent(this, HbBooksAll.class);
+        startActivity(intent);
     }
 }

@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.kfive.hopebible.R;
 import com.kfive.hopebible.data.BookmarksHelper;
 import com.kfive.hopebible.data.VersionHelper;
+import com.kfive.hopebible.helpers.UtilityHelper;
 
 import java.util.ArrayList;
 
@@ -109,7 +110,8 @@ public class HbBookmarks extends ActionBarActivity {
                 Cursor c = (Cursor) listView1.getAdapter().getItem(position);
                 //then we get start and end verses and parse to version helper to get full details on
                 //bible verse
-                Cursor txtcursor = versionHelper.getVerseText(c.getInt(4),c.getInt(5));
+                String dbName = new UtilityHelper(that).getCurrentDBName();
+                Cursor txtcursor = versionHelper.getVerseText(c.getInt(4),c.getInt(5),dbName);
                 String bookname = "";
                 String tp = "";
                 String tp1 = "";

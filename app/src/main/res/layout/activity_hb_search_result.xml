@@ -5,86 +5,13 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/hb_menubar" >
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/imageButton21"
-            android:src="@drawable/hb_homeround"
-            android:layout_marginRight="0dp"
-            android:onClick="onHome"
-            android:background="@color/transparent"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/imageButton22"
-            android:src="@drawable/hb_version"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onVersion" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/imageButton23"
-            android:src="@drawable/hb_roundbooklist"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onBookSelect" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton24"
-            android:src="@drawable/hb_roundsearch"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onSearch" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@drawable/tab_bar_background"
-        android:visibility="gone">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:src="@drawable/hb_home"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onHome"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView4"
-            android:src="@drawable/bookselect"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onBookSelect"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView3"
-            android:src="@drawable/hb_search"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onSearch"/>
-    </LinearLayout>
+        android:iconifiedByDefault="false"
+        android:clickable="true"
+        android:onClick="openBar" />
 
     <FrameLayout
         android:layout_width="fill_parent"

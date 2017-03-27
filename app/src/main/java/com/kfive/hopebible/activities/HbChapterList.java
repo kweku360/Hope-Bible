@@ -8,6 +8,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,20 +20,28 @@ import android.widget.ListView;
 
 import com.kfive.hopebible.R;
 import com.kfive.hopebible.fragments.HbBibleVersion;
+import com.kfive.hopebible.helpers.ThemeHelper;
 
 import java.util.ArrayList;
 
-public class HbChapterList extends ActionBarActivity implements HbBibleVersion.HbBibleVersionListener {
+public class HbChapterList extends AppCompatActivity implements HbBibleVersion.HbBibleVersionListener {
 
     //Extra intent message
     public static final String EXTRA_MESSAGE = "com.kfive.hopebible.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int themeid = new ThemeHelper(getApplicationContext()).getTheme();
+        setTheme(themeid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_chapter_list);
-        setResourcesColor();
-        getSupportActionBar().setElevation(0);
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         showChapterList();
     }
 
@@ -61,7 +71,7 @@ public class HbChapterList extends ActionBarActivity implements HbBibleVersion.H
     //events
 
     public void onHome(View v){
-        Intent intent = new Intent(this, HbHome.class);
+        Intent intent = new Intent(this, HbLanding.class);
         startActivity(intent);
     }
 
@@ -87,7 +97,7 @@ public class HbChapterList extends ActionBarActivity implements HbBibleVersion.H
         final ArrayList<String> message = intent.getStringArrayListExtra(HbBooksAll.EXTRA_MESSAGE);
 
         //set Title
-        setTitle(message.get(0));
+        getSupportActionBar().setTitle(message.get(0));
 
         //then we build a string array from the last item in the arrray list
         int chapterlength = Integer.parseInt(message.get(2));
@@ -143,7 +153,7 @@ public class HbChapterList extends ActionBarActivity implements HbBibleVersion.H
 //        Intent intent = new Intent(this, HbMoreVersions.class);
 //        startActivity(intent);
     }
-
+//Deprecated
     private String getColorTheme(){
         SharedPreferences appprefs = getSharedPreferences("com.kfive.hopebible.bible", MODE_PRIVATE);
         SharedPreferences.Editor ed;
@@ -157,15 +167,11 @@ public class HbChapterList extends ActionBarActivity implements HbBibleVersion.H
         }
         return themecolor;
     }
-
+    //Deprecated
     private void setResourcesColor(){
         String color = getColorTheme();
         LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);
-
-
         hbmenubar.setBackgroundColor(Color.parseColor(color));
-
-
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
     }
 }

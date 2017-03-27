@@ -52,7 +52,7 @@ public class DbInitHelper extends SQLiteOpenHelper {
 
         if (dbExist) {
             //do nothing - database already exist
-            Log.v("DBExists", "Db Exists Already");
+            Log.v("InitDBExists", "Db Exists Already");
         } else {
 
             //By calling this method and empty database will be created into the default system path
@@ -110,10 +110,10 @@ public class DbInitHelper extends SQLiteOpenHelper {
     private void copyDataBase() throws IOException {
         UtilityHelper utilityHelper = new UtilityHelper(myContext);
         String destfolder = myContext.getFilesDir().getAbsolutePath();
-        //here we copy tasv for test purposes only
-        if (utilityHelper.assetCopy(destfolder, "tasv.db") == true){
-            Log.v("Copy", "tasv");
-        }
+
+//        String unzipfolder = myContext.getDatabasePath(DB_NAME).getPath();
+//        unzipfolder = unzipfolder.substring(0, unzipfolder.lastIndexOf("/"));
+
 
         //a few changes here and there
         //first copy zip to app folder
@@ -140,16 +140,21 @@ public class DbInitHelper extends SQLiteOpenHelper {
                     myOutput.write(buffer, 0, length);
 
                 }
-                Log.v("Coppied Successfully", "db Coppied Successfully");
+                Log.v("Copied Successfully", "db Coppied Successfully");
                 //Close the streams
                 myOutput.flush();
                 myOutput.close();
                 myInput.close();
 
+                //now we copy tasv and tkjv into db folder
+                utilityHelper.DbFileCopy(destfolder,"t_asv");
+                utilityHelper.DbFileCopy(destfolder,"t_kjv");
+
                 //finally we delete temp files
                 utilityHelper.deleteFile(destfolder, DB_NAME + ".zip");
                 utilityHelper.deleteFile(destfolder, DB_NAME);
-
+                utilityHelper.deleteFile(destfolder, "t_kjv");
+                utilityHelper.deleteFile(destfolder, "t_asv");
 
             }
 //
@@ -166,6 +171,15 @@ public class DbInitHelper extends SQLiteOpenHelper {
         String myPath = DB_PATH + DB_NAME;
         myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
+    }
+
+
+    public SQLiteDatabase openActiveDataBase(String dbName) throws SQLException {
+        //Open the database
+        String myPath = DB_PATH + dbName;
+        SQLiteDatabase activeDb = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        String path = activeDb.getPath();
+        return activeDb;
     }
 
     @Override
@@ -193,7 +207,6 @@ public class DbInitHelper extends SQLiteOpenHelper {
     // to you to create adapters for your views.
 
 }
-
 
 //            lets lsit all file
 //            File f = new File(destfolder+File.separator);

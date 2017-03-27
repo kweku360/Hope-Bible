@@ -12,6 +12,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,8 +32,12 @@ import com.kfive.hopebible.data.VersionHelper;
 import com.kfive.hopebible.fragments.HbBibleVersion;
 import com.kfive.hopebible.fragments.HbColortag;
 import com.kfive.hopebible.helpers.BibleHelper;
+import com.kfive.hopebible.helpers.ThemeHelper;
+import com.kfive.hopebible.helpers.UtilityHelper;
 import com.kfive.hopebible.models.Bookmark;
 import com.kfive.hopebible.models.Colortag;
+import com.kfive.hopebible.uihelpers.AppTextViewDosis;
+import com.kfive.hopebible.uihelpers.AppTextViewLibreBold;
 
 import java.util.ArrayList;
 
@@ -54,10 +59,17 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int themeid = new ThemeHelper(getApplicationContext()).getTheme();
+        setTheme(themeid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_bible_text);
-        getSupportActionBar().setElevation(0); //hide shadow on actionbar
-        setResourcesColor();//theme method
+
+//        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(mToolbar);
+//
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         // lets settle on one version helper
         versionHelper = new VersionHelper(this);
         bibleHelper = new BibleHelper();
@@ -67,7 +79,6 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
 
         //register list item click
         bibletextClick();
-
 
     }
 
@@ -167,7 +178,7 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
     //custom methods here
 
     public void onHome(View v){
-        Intent intent = new Intent(this, HbHome.class);
+        Intent intent = new Intent(this, HbLanding.class);
         startActivity(intent);
     }
 
@@ -216,7 +227,8 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
 
     //overload method
     private void showBibleText(int startverse,int endverse){
-        Cursor cursor = versionHelper.getVerseText(startverse,endverse);
+        String dbName = new UtilityHelper(this).getCurrentDBName();
+        Cursor cursor = versionHelper.getVerseText(startverse,endverse,dbName);
         if(cAdapter == null){
             //we are dealing with an intent service
             //custom cursor adaptor
@@ -234,14 +246,16 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
 
     public void onNextChapter(View v){
             int rowid =  bibleHelper.getRowId(cAdapter,"next"); //now this gets us the next row id
-            int startverse = versionHelper.getVerseId(rowid);
+            String dbName = new UtilityHelper(this).getCurrentDBName();
+            int startverse = versionHelper.getVerseId(rowid,dbName);
             int[] verses = bibleHelper.prevNextChapter("next",startverse);
             showBibleText(verses[0],verses[1]);
 
     }
     public void onPreviousChapter(View v){
-             int rowid =  bibleHelper.getRowId(cAdapter,"prev"); //now this gets us the prev row id
-            int endverse = versionHelper.getVerseId(rowid);
+            int rowid =  bibleHelper.getRowId(cAdapter,"prev"); //now this gets us the prev row id
+            String dbName = new UtilityHelper(this).getCurrentDBName();
+            int endverse = versionHelper.getVerseId(rowid,dbName);
             int[] verses = bibleHelper.prevNextChapter("prev",endverse);
             showBibleText(verses[0],verses[1]);
     }
@@ -250,7 +264,12 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
         Cursor cs = (Cursor)cAdapter.getItem(0);
         //lets set the new title
         String bibleversion = versionHelper.getCurrentVersion().getAbbreviation();
-        setTitle(cs.getString(8)+ " "+ cs.getInt(3)+ " ( " + bibleversion +" )");
+        AppTextViewDosis bookname = (AppTextViewDosis) findViewById(R.id.hb_bookname);
+        bookname.setText(cs.getString(8));
+
+        AppTextViewDosis bookchapter = (AppTextViewDosis) findViewById(R.id.hb_bookchapter);
+        bookchapter.setText("Chapter " + cs.getString(3)+ " ( " + bibleversion +" )");
+//        getSupportActionBar().setTitle(cs.getString(8)+ " "+ cs.getInt(3)+ " ( " + bibleversion +" )");
     }
 
     private void saveVerseToHistory(String fullverse,String txt,String version) {
@@ -308,16 +327,16 @@ public class HbBibleText extends AppCompatActivity implements PopupMenu.OnMenuIt
     }
 
     private void setResourcesColor(){
-        String color = getColorTheme();
-        LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);
-        RelativeLayout hbfooter = (RelativeLayout)findViewById(R.id.hb_footer);
-        // ImageButton searchbtn = (ImageButton)findViewById(R.id.hb_searchbtn);
-
-        hbmenubar.setBackgroundColor(Color.parseColor(color));
-        hbfooter.setBackgroundColor(Color.parseColor(color));
-        // searchbtn.setBackgroundColor(Color.parseColor(color));
-
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+//        String color = getColorTheme();
+//        LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);
+//        RelativeLayout hbfooter = (RelativeLayout)findViewById(R.id.hb_footer);
+//        // ImageButton searchbtn = (ImageButton)findViewById(R.id.hb_searchbtn);
+//
+//        hbmenubar.setBackgroundColor(Color.parseColor(color));
+//        hbfooter.setBackgroundColor(Color.parseColor(color));
+//        // searchbtn.setBackgroundColor(Color.parseColor(color));
+//
+//        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
     }
 }
 

@@ -13,6 +13,7 @@
     <color name="tab_highlight">#ff9ecfbf</color>
     <color name="lightgray">#999999</color>
     <color name="redoctober">#F44336</color>
+    <color name="green">#6ab344</color>
 
     <!--Theme Colors-->
     <!--RED THEME-->
@@ -35,5 +36,5 @@
 
     <color name="purple">#ff834AA6</color>
     <color name="whitepurple">#fff4eff6</color>
-    <color name="black">#ff000000</color>
+    <color name="black">#000000</color>
 </resources>

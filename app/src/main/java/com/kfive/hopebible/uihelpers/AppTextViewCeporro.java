@@ -24,7 +24,7 @@ public class AppTextViewCeporro extends TextView {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Ceporro.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Dosis-Medium.ttf");
             setTypeface(tf);
         }
     }

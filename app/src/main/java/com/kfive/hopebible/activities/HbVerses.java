@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,8 @@ import android.widget.ListView;
 import com.kfive.hopebible.R;
 import com.kfive.hopebible.data.VersionHelper;
 import com.kfive.hopebible.fragments.HbBibleVersion;
+import com.kfive.hopebible.helpers.ThemeHelper;
+import com.kfive.hopebible.helpers.UtilityHelper;
 
 import java.util.ArrayList;
 
@@ -29,10 +32,17 @@ public class HbVerses extends ActionBarActivity implements HbBibleVersion.HbBibl
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int themeid = new ThemeHelper(getApplicationContext()).getTheme();
+        setTheme(themeid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_verses);
-        setResourcesColor();
-        getSupportActionBar().setElevation(0);
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         showVerses();
     }
 
@@ -61,7 +71,7 @@ public class HbVerses extends ActionBarActivity implements HbBibleVersion.HbBibl
 
     //events
     public void onHome(View v){
-        Intent intent = new Intent(this, HbHome.class);
+        Intent intent = new Intent(this, HbLanding.class);
         startActivity(intent);
     }
 
@@ -85,7 +95,7 @@ public class HbVerses extends ActionBarActivity implements HbBibleVersion.HbBibl
         Intent intent = getIntent();
         final ArrayList<String> message = intent.getStringArrayListExtra(HbChapterList.EXTRA_MESSAGE);
         //set Title
-        setTitle("All verses of " + message.get(0) + " "+message.get(3));
+        getSupportActionBar().setTitle("All verses of " + message.get(0) + " "+message.get(3));
         //We build our start and end verses
         final String startverse = message.get(1)+message.get(2)+"00"+1;
         final String endverse = message.get(1)+message.get(2)+999;
@@ -93,7 +103,8 @@ public class HbVerses extends ActionBarActivity implements HbBibleVersion.HbBibl
         Log.d("verses", endverse);
         //lets connect to out table and get the verse count
         VersionHelper versionHelper = new VersionHelper(this);
-        int versenumber = versionHelper.getVerseCount(Integer.parseInt(startverse),Integer.parseInt(endverse));
+        String dbName = new UtilityHelper(this).getCurrentDBName();
+        int versenumber = versionHelper.getVerseCount(Integer.parseInt(startverse),Integer.parseInt(endverse),dbName);
         Log.d("verses", String.valueOf(versenumber));
 
 //        niceee.. not lets populate our list

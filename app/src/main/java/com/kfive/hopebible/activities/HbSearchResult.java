@@ -1,5 +1,6 @@
 package com.kfive.hopebible.activities;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
@@ -31,11 +34,13 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HbSearchResult extends ActionBarActivity implements HbBibleVersion.HbBibleVersionListener {
-    SearchResultAsync searchResultAsync = new SearchResultAsync(this);
+public class HbSearchResult extends AppCompatActivity implements HbBibleVersion.HbBibleVersionListener {
+
     ProgressBar pg;
     //Extra intent message
     public static final String EXTRA_MESSAGE = "com.kfive.hopebible.MESSAGE";
+
+    SearchView searchView;
 
     //classes
     VersionHelper versionHelper = new VersionHelper(this);
@@ -43,13 +48,43 @@ public class HbSearchResult extends ActionBarActivity implements HbBibleVersion.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_search_result);
-        setResourcesColor();
-        getSupportActionBar().setElevation(0);
+        //setResourcesColor();
+
         pg = (ProgressBar) findViewById(R.id.progressBar1);
         pg.setVisibility(View.VISIBLE);
-        showSearchResult();
 
-        onResultItemClick();
+        searchView = (SearchView) findViewById(R.id.search);
+
+        searchArea();
+       // showSearchResult();
+
+        ///onResultItemClick();
+    }
+
+    private void searchArea() {
+
+// Sets searchable configuration defined in searchable.xml for this SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.v("Squery",query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                Log.v("Squerychange",query);
+                if(query.equals("")){}else{
+                    showSearchResult(query);
+                }
+
+                return true;
+            }
+        });
     }
 
     private void onResultItemClick() {
@@ -131,13 +166,22 @@ public class HbSearchResult extends ActionBarActivity implements HbBibleVersion.
     }
 
     //retrieve the intent and show results
-    private void showSearchResult() {
+    public void showSearchResult(final String myquery) {
+        Log.v("dcall",myquery);
         //first we get the intent as an arraylist
         final Context that = this;
+        String query = "";
         Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            query = intent.getStringExtra(SearchManager.QUERY);
+        }
         final ArrayList<String> message = intent.getStringArrayListExtra(HbSearchPage.EXTRA_MESSAGE);
-        setTitle("Search Results '"+message.get(0)+"' ");
-            searchResultAsync.execute(message.get(0), message.get(1), message.get(2));
+
+      //  setTitle("Search Results '"+message.get(0)+"' ");
+            SearchResultAsync searchResultAsync = new SearchResultAsync(this);
+            searchResultAsync.execute(myquery, "true", "Entire Bible");
+//            searchResultAsync.execute(message.get(0), message.get(1), message.get(2));
+
 
         searchResultAsync.setAsyncTaskResponseListener(new SearchResultAsync.AsyncTaskResponse() {
             @Override
@@ -161,8 +205,8 @@ public class HbSearchResult extends ActionBarActivity implements HbBibleVersion.
                             //highlight the substring-- pretty cool..huh :)
 
                             String textString = cursor.getString(cursor.getColumnIndex("t"));
-                            Log.v("messageownertxt", message.get(0));
-                            Pattern verse = Pattern.compile(message.get(0), Pattern.CASE_INSENSITIVE);
+                            Log.v("messageownertxt",myquery);
+                            Pattern verse = Pattern.compile(myquery, Pattern.CASE_INSENSITIVE);
                             Matcher match = verse.matcher(textString);
                             Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
                             while (match.find()) {
@@ -210,6 +254,11 @@ public class HbSearchResult extends ActionBarActivity implements HbBibleVersion.
         //start the intent and search activity
         Intent intent = new Intent(this, HbSearchPage.class);
         startActivity(intent);
+    }
+
+    public void openBar(View v){
+        Log.v("Schange","well block");
+        searchView.setIconified(false);
     }
 
     private String getColorTheme(){

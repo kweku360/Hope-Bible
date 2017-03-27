@@ -1,6 +1,8 @@
 <resources>
     <!--this is the main app theme-->
-
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/startsplash</item>
+    </style>
     <style name="PopupOverlay"></style>
     <style name="AppBarOverlay"></style>
 </resources>

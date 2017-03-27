@@ -117,7 +117,7 @@ public class HbHome extends ActionBarActivity implements HbBibleVersion.HbBibleV
         HomeImg.setImageResource(imlist.get(i));
 
     }
-
+    //deprecated
     private String getColorTheme(){
         SharedPreferences appprefs = getSharedPreferences("com.kfive.hopebible.bible", MODE_PRIVATE);
         SharedPreferences.Editor ed;
@@ -131,7 +131,7 @@ public class HbHome extends ActionBarActivity implements HbBibleVersion.HbBibleV
         }
         return themecolor;
     }
-
+    //deprecated
     private void setResourcesColor(){
         String color = getColorTheme();
         LinearLayout hbbometop = (LinearLayout)findViewById(R.id.hb_hometop);

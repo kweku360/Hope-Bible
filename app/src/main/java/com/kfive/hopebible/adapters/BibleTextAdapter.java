@@ -22,7 +22,7 @@ import com.kfive.hopebible.models.Colortag;
  */
 public class BibleTextAdapter extends CursorAdapter {
     //Font
-    private static final String CUSTOM_FONT = "fonts/RobotoSlab-Light.ttf";
+    private static final String CUSTOM_FONT = "fonts/LibreBaskerville-Regular.ttf";
     private Context appcontext;
 
     public BibleTextAdapter(Context context, Cursor c, int flags) {
@@ -47,19 +47,17 @@ public class BibleTextAdapter extends CursorAdapter {
 
         TextView versetext = (TextView) view.findViewById(R.id.versetext);
         TextView versenumber = (TextView) view.findViewById(R.id.versenumber);
-        ImageView bookmarkimg = (ImageView) view.findViewById(R.id.bookmarkimg);
+        ImageView bookmarkimg = (ImageView) view.findViewById(R.id.hb_bookmarkbar);
 
         versetext.setTypeface(myTypeface);
-        versetext.setBackgroundColor(Color.TRANSPARENT);
+        versetext.setBackgroundColor(Color.WHITE);
 
-        versetext.setText(cursor.getString(5));
-        versenumber.setText(cursor.getString(4));
+        versenumber.setText(cursor.getString(5));
+        versetext.setText(" "+cursor.getString(4)+".  "+cursor.getString(5));
 
         checkBookmark(context,cursor,bookmarkimg);
         //checkColortag(context,cursor,versetext);
 
-        // Log.v("BindView", "Bind view called");
-      //  Log.v("BindView", verseno);
     }
 
     private void checkColortag(Context context, Cursor cursor, TextView versetext) {

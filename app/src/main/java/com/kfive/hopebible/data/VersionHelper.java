@@ -16,20 +16,26 @@ import com.kfive.hopebible.models.Version;
 /**
  * Project: Hope Book
  * Created by kweku kankam on 10/25/14.
+ * Revised 03/27/17 by kweku kankam
  * copyright
  */
-public class VersionHelper extends SQLiteOpenHelper {
-    // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+public class VersionHelper  {
+
+    //Core database name
     public static final String DATABASE_NAME = "HopeBook";
 
-    // Books table name
-    private static final String TABLE_VERSION = "t_kjv";
+    //Represents the Current Database being used
+    public SQLiteDatabase SqlDb;
 
-    private static final String TABLE_KEY_VERSION = "key_english";
+    //DBInit Helper
+    public DbInitHelper myDbHelper;
+
+    //Very useful to access the name of the current database
+//    String dbName;
 
 
-    private SQLiteDatabase SqlDb;
+    private static final String TABLE_VERSION = "t_kjv";// table name from DB
+    private static final String TABLE_KEY_VERSION = "key_english";// table name from Core DB
 
     // Books Table Columns names
     private static final String KEY_ID = "id";
@@ -40,55 +46,50 @@ public class VersionHelper extends SQLiteOpenHelper {
 
     private final Context APPCONTEXT ;
 
-
     private static final String[] COLUMNS = {KEY_ID,KEY_B,KEY_C,KEY_V,KEY_T};
 
-
+    //constructor
     public VersionHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         APPCONTEXT = context;
-    }
-    //getters and setters
-    public static String getTableVersion() {
-        return TABLE_VERSION;
+        myDbHelper = new DbInitHelper(context);
     }
 
+    //Methods Here
 
-    public void onCreate(SQLiteDatabase db) {
-        // SQL statement to create table
-        //table will already be created
-
-        //Execute Query to create table
-        //db.execSQL(CREATE_BOOK_TABLE);
-    }
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older books table if existed
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_VERSION);
-
-        // create fresh books table
-        this.onCreate(db);
-    }
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
-    }
-
-    //other helper methods for crud
-
-    public void dbQueryExec(String query){
+    /**
+     * Runs a SQL query Using the db.execSQL functions
+     * Normally used for quick queries
+     *
+     * @param  query  String query
+     * @param  dbName the active database (or the one in use)
+     * @return void   no return value
+     */
+    public void dbQueryExec(String query,String dbName){
         if(query != ""){
-            // 1. get reference to writable DB
-            SQLiteDatabase db = this.getWritableDatabase();
-            db.execSQL(query);
+
+            SqlDb = myDbHelper.openActiveDataBase(dbName);
+            SqlDb.execSQL(query);
+            // SqlDb.close();
         }
     }
-    public Version findOne(int id){
 
-        // 1. get reference to readable DB
-        SQLiteDatabase db = this.getReadableDatabase();
+    /**
+     * Finds One Verse  from the
+     * HopeBook Bible Version based in id (scripture ID)
+     *
+     * @param  id  bible_version_key ID
+     * @param  dbName the active database (or the one in use)(not yet implemented
+     * @return version  bible-version
+     */
+
+    public Version findOne(int id,String dbName){
+
+        // 1. get reference to current DB
+        SqlDb = myDbHelper.openActiveDataBase(dbName);
 
         // 2. build query
         Cursor cursor =
-                db.query(TABLE_VERSION, // a. table
+                SqlDb.query(TABLE_VERSION, // a. table
                         COLUMNS, // b. column names
                         " id = ?", // c. selections
                         new String[] { String.valueOf(id) }, // d. selections args
@@ -97,7 +98,10 @@ public class VersionHelper extends SQLiteOpenHelper {
                         null, // g. order by
                         null); // h. limit
 
-        // 3. if we got results get the first one
+        //3. Close db after query
+        // SqlDb.close();
+
+        // 4. if we got results get the first one
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -109,31 +113,34 @@ public class VersionHelper extends SQLiteOpenHelper {
         version.setV(Integer.parseInt(cursor.getString(3)));
         version.setT(cursor.getString(4));
 
-
-
         //log
-        Log.d("getCrossReference", version.toString());
+        //Log.d("getCrossReference", version.toString());
 
-        // 5. return bible key version
         return version;
     }
 
-    public int getVerseCount(int startverse, int endverse){
+    /**
+     * Gets Count of Verses
+     * Normally Used to Show verses of a Chapter
+     *But can be used for other stuff
+     *
+     * @param  startverse  Start Verse Code
+     * @param  endverse  end Verse Code
+     * @param  dbName the active database (or the one in use)(not yet implemented
+     * @return count  Int Value
+     */
+    public int getVerseCount(int startverse, int endverse,String dbName){
 
         // 1. build the query SELECT * FROM bible.t_asv WHERE id BETWEEN 01001001 AND 02001005
-        String query = "SELECT  count(*) FROM " + TABLE_VERSION  + " WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"'";
+        String query = "SELECT  count(*) FROM t_asv WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"'";
         int count = 0;
-
         try
         {
-            DbInitHelper myDbHelper = new DbInitHelper(APPCONTEXT);
-            myDbHelper.openDataBase();
-            myDbHelper.close();
-            SqlDb = myDbHelper.getWritableDatabase();
+            SqlDb = myDbHelper.openActiveDataBase(dbName);
             Cursor cursor = SqlDb.rawQuery(query, null);
             cursor.moveToFirst();
             count= cursor.getInt(0);
-            SqlDb.close();
+            // SqlDb.close();
         }
         catch (SQLException mSQLException)
         {
@@ -143,6 +150,14 @@ public class VersionHelper extends SQLiteOpenHelper {
 
         return count;
     }
+
+    /**
+     * Retrieves the Bible version Information from Shared Prefs
+     *Normally used to get Version Info
+     *
+     *
+     * @return Bible Version Key  model
+     */
     public BibleVersionKey getCurrentVersion(){
         //we get shared pref
         Context context = APPCONTEXT;
@@ -157,40 +172,47 @@ public class VersionHelper extends SQLiteOpenHelper {
         return bibleVersionKey;
     }
 
+    /**
+     * Retrieves verse text
+     *Joins two tables from its current db
+     *
+     *
+     * @param  startverse  Start Verse Code
+     * @param  endverse  end Verse Code
+     * @param  dbName the active database (or the one in use)(not yet implemented
+     * @return cursor  DB Cursor
+     */
+    public Cursor getVerseText(int startverse, int endverse,String dbName) {
 
-    public Cursor getVerseText(int startverse, int endverse) {
         //this method returns a cursor to be used by the cursor adapter class
-
-        String TABLE_VERSION = getCurrentVersion().getTable();
+//        String TABLE_VERSION = getCurrentVersion().getTable();
+        String TABLE_VERSION = dbName;
 
         // 1. build the query
        // String query = "SELECT  rowid _id,* FROM " + TABLE_VERSION  + " WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"'";
        String query = "SELECT "+TABLE_VERSION+".rowid _id,* FROM " + TABLE_VERSION  + " INNER JOIN "+ TABLE_KEY_VERSION +" ON "+ TABLE_VERSION +".b = "+ TABLE_KEY_VERSION + ".b WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"'";
 
         // 2. get reference to writable DB
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
+        SqlDb = myDbHelper.openActiveDataBase(dbName);
+        Cursor cursor = SqlDb.rawQuery(query, null);
+        // SqlDb.close();
 
         // return cursor
         return cursor;
     }
 
-
-    public int getVerseId(int rowid) {
+    public int getVerseId(int rowid,String dbName) {
         //this method returns a cursor to be used by the cursor adapter class
-
-        String TABLE_VERSION = getCurrentVersion().getTable();
-
         // 1. build the query
-        String query = "SELECT  rowid _id,* FROM " + TABLE_VERSION  + " WHERE rowid = '" + rowid +"'";
+        String query = "SELECT  rowid _id,* FROM " + dbName  + " WHERE rowid = '" + rowid +"'";
 
         // 2. get reference to writable DB
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
+        SqlDb = myDbHelper.openActiveDataBase(dbName);
+        Cursor cursor = SqlDb.rawQuery(query, null);
+        // SqlDb.close();
 
         cursor.moveToFirst();
         int count= cursor.getInt(1);
-        db.close();
         return count;
     }
 }

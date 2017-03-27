@@ -6,7 +6,7 @@
         <item name="android:colorBackground">@color/redPrimaryLight</item>
         <item name="android:colorForeground">@color/redPrimary</item>
         <item name="android:textColorPrimary">@color/redSecondaryText</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
     <style name="HopeBibleTheme.Blue" parent="Theme.AppCompat.Light.NoActionBar" >
         <item name="colorPrimary">@color/bluePrimary</item>
@@ -15,6 +15,6 @@
         <item name="android:colorBackground">@color/bluePrimaryLight</item>
         <item name="android:colorForeground">@color/bluePrimary</item>
         <item name="android:textColorPrimary">@color/blueSecondaryText</item>
-        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 </resources>

@@ -3,30 +3,116 @@
 <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/white"
-    android:padding="10dp">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_item"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/hb_versionname"
-        android:layout_alignParentLeft="true"
-        android:textSize="14dp"
-        android:textColor="@color/purple"
-        android:paddingLeft="5dp" />
+        card_view:contentPadding="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/hb_downloadcount"
-        android:layout_below="@+id/hb_versionname"
-        android:layout_alignParentLeft="true"
-        android:textSize="11dp"
-        android:textColor="@color/lightblack"
-        android:paddingLeft="5dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_height="60dp"
+                android:id="@+id/versionimg"
+                android:layout_weight="0.2"
+                android:layout_width="0dp"
+                app:srcCompat="@drawable/hb_bible_btn_normal" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:paddingTop="4dp"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:text="New International Version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/versionname"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:text="Niv ( 6000 downloads )"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/versioninfo"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/versionprogress"
+                    android:visibility="gone">
+
+                    <com.kfive.hopebible.uihelpers.AppTextViewRoboto
+                        android:text="Installing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/progresstxt"
+                        android:gravity="center"
+                        android:textColor="?attr/colorPrimaryDark" />
+                    <com.kfive.hopebible.uihelpers.AppTextViewRoboto
+                        android:text="32%"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/progresspercent"
+                        android:gravity="center"
+                        android:textColor="?attr/colorPrimaryDark" />
+                </LinearLayout>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/hb_installversion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:layout_gravity="center"
+                    fancy:fb_borderColor="?attr/colorPrimaryDark"
+                    fancy:fb_borderWidth="1dp"
+                    fancy:fb_defaultColor="?attr/colorPrimary"
+                    fancy:fb_focusColor="?attr/colorPrimaryDark"
+                    fancy:fb_iconPosition="left"
+                    fancy:fb_radius="2dp"
+                    fancy:fb_text="Install"
+                    fancy:fb_textColor="#FFFFFF"
+                    android:visibility="gone" />
+                <com.kfive.hopebible.uihelpers.AppTextViewRoboto
+                    android:text="Installed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/versioninstalled"
+                    android:gravity="center"
+                    android:textColor="@color/green" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

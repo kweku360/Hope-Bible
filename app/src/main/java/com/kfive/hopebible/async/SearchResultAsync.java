@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 
 import com.kfive.hopebible.helpers.SearchHelper;
+import com.kfive.hopebible.helpers.UtilityHelper;
 
 /**
  * Created by apple on 11/18/14.
@@ -47,12 +48,14 @@ public class SearchResultAsync extends AsyncTask<String,Void,Cursor> {
 
         if(criteria.equals("true")){
             SearchHelper searchHelper = new SearchHelper(con);
-            Cursor cursor = searchHelper.searchEntireBible(text);
+            String dbName = new UtilityHelper(con).getCurrentDBName();
+            Cursor cursor = searchHelper.searchEntireBible(text,dbName);
             return cursor;
         }
         if(criteria.equals("false")){
             SearchHelper searchHelper = new SearchHelper(con);
-             Cursor cursor = searchHelper.searchEntireBible(text);
+            String dbName = new UtilityHelper(con).getCurrentDBName();
+             Cursor cursor = searchHelper.searchEntireBible(text,dbName);
             return cursor;
         }
         return null;
@@ -60,13 +63,15 @@ public class SearchResultAsync extends AsyncTask<String,Void,Cursor> {
     private Cursor searchNewTestament(String text, String criteria) {
 
         SearchHelper searchHelper = new SearchHelper(con);
-        Cursor cursor = searchHelper.searchTestament(text,40001001,66022021);
+        String dbName = new UtilityHelper(con).getCurrentDBName();
+        Cursor cursor = searchHelper.searchTestament(text,40001001,66022021,dbName);
         return cursor;
     }
     private Cursor searchOldTestament(String text, String criteria) {
 
         SearchHelper searchHelper = new SearchHelper(con);
-        Cursor cursor = searchHelper.searchTestament(text,1001001,39004006);
+        String dbName = new UtilityHelper(con).getCurrentDBName();
+        Cursor cursor = searchHelper.searchTestament(text,1001001,39004006,dbName);
         return cursor;
     }
 

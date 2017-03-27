@@ -1,62 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/white">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/redoctober"
-        android:id="@+id/hb_menubar"
-        android:paddingBottom="5dp">
+    <!--<include-->
+        <!--layout="@layout/hb_toolbar" />-->
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="2dp"
+        app:srcCompat="@color/black"
+        android:id="@+id/hb_bartop"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="4dp" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/imageButton14"
-            android:src="@drawable/hb_homeround"
-            android:layout_marginRight="0dp"
-            android:onClick="onHome"
-            android:background="@color/transparent"
-            android:layout_weight="1" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/imageButton15"
-            android:src="@drawable/hb_version"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onVersion" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/imageButton16"
-            android:src="@drawable/hb_roundbooklist"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onBookSelect" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton17"
-            android:src="@drawable/hb_roundsearch"
-            android:layout_weight="1"
-            android:background="@color/transparent"
-            android:onClick="onSearch" />
-    </LinearLayout>
-
-    <TextView
+    <com.kfive.hopebible.uihelpers.AppTextViewDosis
+        android:text="Genesis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/hb_bookname"
+        android:layout_gravity="center"
+        android:textAllCaps="true"
+        android:textSize="24sp"
+        android:textColor="@android:color/black" />
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="2dp"
+        app:srcCompat="@color/black"
+        android:id="@+id/hb_barbottom"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="7dp"
+        />
+    <com.kfive.hopebible.uihelpers.AppTextViewDosis
+        android:text="Chapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hb_bookchapter"
+        android:layout_gravity="center"
+        android:textColor="?attr/colorPrimaryDark"
+        android:textSize="16sp"
+        android:textStyle="italic" />
 
-        android:id="@+id/pageinfo" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+
+        <!--android:id="@+id/pageinfo" />-->
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -65,7 +59,9 @@
         <ListView
             android:id="@android:id/list"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"
+            android:divider="@android:color/transparent"
+            />
 
 
         <ViewStub
@@ -75,37 +71,45 @@
             android:layout_gravity="center"
             android:layout="@layout/empty" />
     </FrameLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:padding="0dp"
-        android:background="@color/redoctober"
-        android:alpha="0.8"
+        android:background="?attr/colorPrimary"
         android:id="@+id/hb_footer">
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/prevchapter"
             android:background="@color/transparent"
             android:src="@drawable/hb_prev"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="4dp"
-            android:layout_alignParentLeft="true"
-            android:onClick="onPreviousChapter"/>
+            android:onClick="onPreviousChapter"
+            android:layout_weight="0.10" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.80">
+            <include
+                layout="@layout/hb_topmenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/nextchapter"
             android:background="@color/transparent"
             android:src="@drawable/hb_next"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="4dp"
-            android:layout_alignParentRight="true"
-            android:onClick="onNextChapter"/>
-    </RelativeLayout>
+            android:onClick="onNextChapter"
+            android:layout_weight="0.10" />
+    </LinearLayout>
 
 </LinearLayout>
