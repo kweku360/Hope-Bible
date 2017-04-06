@@ -235,7 +235,7 @@ public class MoreVersionsAdapter extends BaseAdapter {
                         if (DownloadManager.STATUS_SUCCESSFUL == cursor.getInt(columnIndex)) {
                             String fname = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_TITLE));
                             //we do a file copy
-                            if(utilityHelper.DbFileCopy(Environment.getExternalStoragePublicDirectory("/HopeBible").getAbsolutePath(),fname) == true)
+                            if(utilityHelper.DbFileCopy(Environment.getExternalStoragePublicDirectory("/HopeBible").getAbsolutePath(),"t_niv ") == true)
                             {
                                 //lets check to see if the file was copied by listing
                                 utilityHelper.ListFilesInDir("/data/data/com.kfive.hopebible/databases/");

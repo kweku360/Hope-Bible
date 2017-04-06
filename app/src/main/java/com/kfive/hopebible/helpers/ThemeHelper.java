@@ -35,6 +35,8 @@ public class ThemeHelper {
                 break;
             case "HopeBibleThemeBlue" : themeid = R.style.HopeBibleTheme_Blue; //blue
                 break;
+            case "HopeBibleThemeGold" : themeid = R.style.HopeBibleTheme_Gold; //blue
+                break;
             case "HopeBibleTheme" : themeid = R.style.HopeBibleTheme; //red
                 break;
         }

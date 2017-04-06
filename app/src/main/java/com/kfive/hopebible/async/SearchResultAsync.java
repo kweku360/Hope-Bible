@@ -11,7 +11,7 @@ import com.kfive.hopebible.helpers.UtilityHelper;
  * Created by apple on 11/18/14.
  */
 
-public class SearchResultAsync extends AsyncTask<String,Void,Cursor> {
+public class SearchResultAsync extends AsyncTask<String,Void,Cursor[]> {
     public AsyncTaskResponse responsedelegate;
     public Context con;
 
@@ -28,46 +28,37 @@ public class SearchResultAsync extends AsyncTask<String,Void,Cursor> {
     }
 
     @Override
-    protected Cursor doInBackground(String... searchtext) {
+    protected Cursor[] doInBackground(String... searchtext) {
 
         if(searchtext[2].equals("Entire Bible")){
-            return searchEntireBible(searchtext[0],searchtext[1]);
-        }
-        if(searchtext[2].equals("New Testament")){
-            return searchNewTestament(searchtext[0],searchtext[1]);
-        }
-        if(searchtext[2].equals("Old testament")){
-            return searchOldTestament(searchtext[0],searchtext[1]);
-        }
-
-           // return searchitem(searchtext[0]);
-        return null;
-    }
-
-    private Cursor searchEntireBible(String text, String criteria) {
-
-        if(criteria.equals("true")){
-            SearchHelper searchHelper = new SearchHelper(con);
-            String dbName = new UtilityHelper(con).getCurrentDBName();
-            Cursor cursor = searchHelper.searchEntireBible(text,dbName);
-            return cursor;
-        }
-        if(criteria.equals("false")){
-            SearchHelper searchHelper = new SearchHelper(con);
-            String dbName = new UtilityHelper(con).getCurrentDBName();
-             Cursor cursor = searchHelper.searchEntireBible(text,dbName);
-            return cursor;
+            return searchEntireBible(searchtext[0]);
         }
         return null;
     }
-    private Cursor searchNewTestament(String text, String criteria) {
+
+    private Cursor[] searchEntireBible(String text) {
+
+        Cursor[] arrcursor = new Cursor[3];
+
+        //we get the new testament
+        arrcursor[2] = searchNewTestament(text);
+        //we get the old testament
+        arrcursor[1] = searchOldTestament(text);
+
+            SearchHelper searchHelper = new SearchHelper(con);
+            String dbName = new UtilityHelper(con).getCurrentDBName();
+            arrcursor[0] = searchHelper.searchEntireBible(text,dbName);
+
+        return arrcursor;
+    }
+    private Cursor searchNewTestament(String text) {
 
         SearchHelper searchHelper = new SearchHelper(con);
         String dbName = new UtilityHelper(con).getCurrentDBName();
         Cursor cursor = searchHelper.searchTestament(text,40001001,66022021,dbName);
         return cursor;
     }
-    private Cursor searchOldTestament(String text, String criteria) {
+    private Cursor searchOldTestament(String text) {
 
         SearchHelper searchHelper = new SearchHelper(con);
         String dbName = new UtilityHelper(con).getCurrentDBName();
@@ -78,7 +69,7 @@ public class SearchResultAsync extends AsyncTask<String,Void,Cursor> {
 
     // onPostExecute displays the results of the AsyncTask.
     @Override
-    protected void onPostExecute(Cursor result) {
+    protected void onPostExecute(Cursor[] result) {
         responsedelegate.processFinish(result);
 
     }
@@ -86,6 +77,6 @@ public class SearchResultAsync extends AsyncTask<String,Void,Cursor> {
 
     //this interface helps us get response back to our app
     public  interface AsyncTaskResponse{
-        public void processFinish(Cursor Output);
+        public void processFinish(Cursor[] Output);
     }
 }

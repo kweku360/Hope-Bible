@@ -132,7 +132,7 @@ public class VersionHelper  {
     public int getVerseCount(int startverse, int endverse,String dbName){
 
         // 1. build the query SELECT * FROM bible.t_asv WHERE id BETWEEN 01001001 AND 02001005
-        String query = "SELECT  count(*) FROM t_asv WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"'";
+        String query = "SELECT  count(*) FROM " + dbName +" WHERE id BETWEEN '" + startverse + "' AND '" + endverse+"'";
         int count = 0;
         try
         {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/hb_themeddialogicon"
             android:src="@drawable/hb_theme"
-            android:background="@color/redoctober"
+            android:background="@color/textdark"
             android:padding="2dp"
             android:layout_gravity="center" />
 
@@ -31,7 +32,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="10dp"
-            android:textColor="@color/redoctober" />
+            android:textColor="?attr/colorPrimaryDark" />
 
     </LinearLayout>
 
@@ -43,44 +44,95 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:gravity="center_vertical|center_horizontal"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:id="@+id/blood">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
             android:id="@+id/imageView2"
             android:layout_marginLeft="20dp"
-            android:background="#ff9EBF6D"
-            android:tag="#ff9EBF6D"
-            android:tint="#ff9EBF6D"
-            android:layout_weight="0.2" />
-        <ImageView
+            android:background="@color/redPrimary"
+            android:tag="@color/redPrimary"
+            android:tint="@color/redPrimary"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <com.kfive.hopebible.uihelpers.AppTextViewRoboto
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/redtheme"
+            android:id="@+id/bloodofjesus"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:padding="5dp"
+            android:textColor="@color/redoctober" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5dp"
+        android:id="@+id/spirit">
+
+        <ImageView
             android:id="@+id/imageView3"
-            android:layout_marginLeft="15dp"
-            android:background="#ff008AB8"
-            android:tag="#ff008AB8"
-            android:tint="#ff1c1f23"
-            android:layout_weight="0.2" />
-        <ImageView
+            android:layout_marginLeft="20dp"
+            android:background="@color/bluePrimary"
+            android:tag="@color/bluePrimary"
+            android:tint="@color/bluePrimary"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <com.kfive.hopebible.uihelpers.AppTextViewRoboto
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/bluetheme"
+            android:id="@+id/holyspirit"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:padding="5dp"
+            android:textColor="@color/redoctober" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5dp"
+        android:id="@+id/glory">
+
+        <ImageView
             android:id="@+id/imageView4"
-            android:layout_weight="0.20"
-            android:layout_marginLeft="15dp"
-            android:background="#ffCC3333"
-            android:tag="#ffCC3333"
-            android:tint="#ff1c1f23" />
-        <ImageView
+            android:layout_marginLeft="20dp"
+            android:background="@color/goldPrimary"
+            android:tag="@color/goldPrimary"
+            android:tint="@color/goldPrimary"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <com.kfive.hopebible.uihelpers.AppTextViewRoboto
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:id="@+id/imageView5"
-            android:layout_weight="0.20"
-            android:layout_marginLeft="15dp"
-            android:background="#ff5C3922"
-            android:tag="#ff5C3922"
-            android:tint="#ff1c1f23" />
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/goldtheme"
+            android:id="@+id/godsglory"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:padding="5dp"
+            android:textColor="@color/redoctober" />
 
 
     </LinearLayout>
@@ -89,7 +141,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/redoctober"
+        android:background="@color/textdark"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:id="@+id/hb_lineardialog">

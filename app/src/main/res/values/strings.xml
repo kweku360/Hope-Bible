@@ -59,4 +59,9 @@
     <!--Download Version Activity-->
     <string name="versiontxt">Choose Bible Version To Download</string>
 
+    <!--theme strings-->
+    <string name="redtheme">Blood Of Jesus  </string>
+    <string name="bluetheme">Holy Spirit  </string>
+    <string name="goldtheme">Glory  </string>
+
 </resources>

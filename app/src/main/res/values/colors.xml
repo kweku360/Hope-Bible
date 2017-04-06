@@ -5,18 +5,18 @@
     <!--<color name="colorAccent">#900</color>-->
     <color name="tiffanyblue">#60DFE5</color>
     <color name="doriangray">#F2F2F2</color>
-    <color name="textdark">#8A8080</color>
+    <color name="textdark">#8a8080</color>
     <color name="actionbg">#A37E53</color>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#ffffff</color>
     <color name="lightblack">#535353</color>
     <color name="transparent">#00000000</color>
     <color name="tab_highlight">#ff9ecfbf</color>
     <color name="lightgray">#999999</color>
-    <color name="redoctober">#F44336</color>
+    <color name="redoctober">#595858</color>
     <color name="green">#6ab344</color>
 
     <!--Theme Colors-->
-    <!--RED THEME-->
+    <!--RED THEME - Blood Of Jesus-->
     <color name="redPrimary">#F44336</color>
     <color name="redPrimaryDark">#D32F2F</color>
     <color name="redPrimaryLight">#FFCDD2</color>
@@ -33,6 +33,15 @@
     <color name="bluePrimaryText">#212121</color>
     <color name="blueSecondaryText">#757575</color>
     <color name="blueBorder">#BDBDBD</color>
+    
+    <!--GOlD THEME-->
+    <color name="goldPrimary">#bf9b30</color>
+    <color name="goldPrimaryDark">#a67c00</color>
+    <color name="goldPrimaryLight">#ffcf40</color>
+    <color name="goldPrimaryAccent">#ffdc73</color>
+    <color name="goldPrimaryText">#212121</color>
+    <color name="goldSecondaryText">#757575</color>
+    <color name="goldBorder">#BDBDBD</color>
 
     <color name="purple">#ff834AA6</color>
     <color name="whitepurple">#fff4eff6</color>

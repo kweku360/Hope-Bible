@@ -1,5 +1,6 @@
 <resources>
     <style name="HopeBibleTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="colorPrimary">@color/redPrimary</item>
         <item name="colorPrimaryDark">@color/redPrimaryDark</item>
         <item name="colorAccent">@color/redPrimaryAccent</item>
@@ -9,6 +10,7 @@
         <item name="android:navigationBarColor">@android:color/black</item>
     </style>
     <style name="HopeBibleTheme.Blue" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="colorPrimary">@color/bluePrimary</item>
         <item name="colorPrimaryDark">@color/bluePrimaryDark</item>
         <item name="colorAccent">@color/bluePrimaryAccent</item>
@@ -16,5 +18,20 @@
         <item name="android:colorForeground">@color/bluePrimary</item>
         <item name="android:textColorPrimary">@color/blueSecondaryText</item>
         <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
+    <style name="HopeBibleTheme.Gold" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="colorPrimary">@color/goldPrimary</item>
+        <item name="colorPrimaryDark">@color/goldPrimaryDark</item>
+        <item name="colorAccent">@color/goldPrimaryAccent</item>
+        <item name="android:colorBackground">@color/goldPrimaryLight</item>
+        <item name="android:colorForeground">@color/goldPrimary</item>
+        <item name="android:textColorPrimary">@color/goldSecondaryText</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
     </style>
 </resources>

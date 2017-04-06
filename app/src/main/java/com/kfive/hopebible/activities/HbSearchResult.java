@@ -20,17 +20,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kfive.hopebible.R;
 import com.kfive.hopebible.async.SearchResultAsync;
 import com.kfive.hopebible.data.VersionHelper;
 import com.kfive.hopebible.fragments.HbBibleVersion;
+import com.kfive.hopebible.helpers.ThemeHelper;
+import com.kfive.hopebible.uihelpers.AppTextViewRoboto;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,24 +46,66 @@ public class HbSearchResult extends AppCompatActivity implements HbBibleVersion.
     public static final String EXTRA_MESSAGE = "com.kfive.hopebible.MESSAGE";
 
     SearchView searchView;
+    AppTextViewRoboto searchHint;
+    Cursor[] arrcursor = new Cursor[3];
+    Spinner sItems;
+    String searchquery;
 
     //classes
     VersionHelper versionHelper = new VersionHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int themeid = new ThemeHelper(getApplicationContext()).getTheme();
+        setTheme(themeid);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hb_search_result);
         //setResourcesColor();
 
+        searchHint = (AppTextViewRoboto) findViewById(R.id.searchhint);
+
         pg = (ProgressBar) findViewById(R.id.progressBar1);
-        pg.setVisibility(View.VISIBLE);
+//        pg.setVisibility(View.VISIBLE);
 
         searchView = (SearchView) findViewById(R.id.search);
 
         searchArea();
+
+        filterSpiner();
        // showSearchResult();
 
         ///onResultItemClick();
+    }
+
+    private void filterSpiner(){
+        // you need to have a list of data that you want the spinner to display
+        List<String> spinnerArray =  new ArrayList<String>();
+        spinnerArray.add("Entire Bible");
+        spinnerArray.add("Old Testament");
+        spinnerArray.add("New Testament");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArray);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sItems = (Spinner) findViewById(R.id.spinner);
+        sItems.setAdapter(adapter);
+
+        //on itemselect
+        sItems.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Log.v("spinny",String.valueOf(position));
+//                Log.v("spinny",String.valueOf(id));
+                //first check for null cursor value
+                if(arrcursor[position] != null)
+                processAsync(arrcursor[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void searchArea() {
@@ -67,7 +114,14 @@ public class HbSearchResult extends AppCompatActivity implements HbBibleVersion.
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
+//        searchView.setQueryHint("hello world");
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchHint.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -78,7 +132,7 @@ public class HbSearchResult extends AppCompatActivity implements HbBibleVersion.
             @Override
             public boolean onQueryTextChange(String query) {
                 Log.v("Squerychange",query);
-                if(query.equals("")){}else{
+                if(query.equals(" ")){}else{
                     showSearchResult(query);
                 }
 
@@ -179,58 +233,67 @@ public class HbSearchResult extends AppCompatActivity implements HbBibleVersion.
 
       //  setTitle("Search Results '"+message.get(0)+"' ");
             SearchResultAsync searchResultAsync = new SearchResultAsync(this);
+        //we check if query is actualy more than two letters
+        if(myquery.length() > 2)
+            
             searchResultAsync.execute(myquery, "true", "Entire Bible");
 //            searchResultAsync.execute(message.get(0), message.get(1), message.get(2));
 
 
         searchResultAsync.setAsyncTaskResponseListener(new SearchResultAsync.AsyncTaskResponse() {
             @Override
-            public void processFinish(Cursor Output) {
+            public void processFinish(Cursor[] Output) {
                 //lets inflate a view
-
-                String[] fromColumns = {"n", "c", "v", "t"};
-                int[] toViews = {R.id.searchversebook, R.id.searchversechapter, R.id.searchverseno, R.id.searchversetest};
-
-                // Create an empty adapter we will use to display the loaded data.
-                // We pass null for the cursor, then update it in onLoadFinished()
-                SimpleCursorAdapter cAdapter = new SimpleCursorAdapter(that,
-                        R.layout.hb_search_result_itemview, Output,
-                        fromColumns, toViews, 0);
-                //lets play around here
-                cAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-                    @Override
-                    public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                        if (view.getId() == R.id.searchversetest) {
-                            //what this code does it it searches for a substring within a given string and
-                            //highlight the substring-- pretty cool..huh :)
-
-                            String textString = cursor.getString(cursor.getColumnIndex("t"));
-                            Log.v("messageownertxt",myquery);
-                            Pattern verse = Pattern.compile(myquery, Pattern.CASE_INSENSITIVE);
-                            Matcher match = verse.matcher(textString);
-                            Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
-                            while (match.find()) {
-                                Log.v("messagetxt", spanText.toString());
-                                spanText.setSpan(new BackgroundColorSpan(0xFFFFFF00), match.start(), match.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                ;
-                            }
-                            ((TextView) view).setText(spanText);
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-
-
-                ListView mylist = (ListView) findViewById(R.id.hb_result);
-                mylist.setAdapter(cAdapter);
-                pg.setVisibility(View.GONE);
-                TextView pageinfo = (TextView) findViewById(R.id.pageinfo);
-                pageinfo.setText("Search Returned " + cAdapter.getCount() + " verses");
-
-
+//                lets play here
+               arrcursor = Output;
+                searchquery = myquery;
+               int s =  sItems.getSelectedItemPosition();
+                processAsync(arrcursor[s]);
             }
         });
+    }
+
+    public void processAsync(Cursor Output){
+
+        String[] fromColumns = {"n", "c", "v", "t"};
+        int[] toViews = {R.id.searchversebook, R.id.searchversechapter, R.id.searchverseno, R.id.searchversetest};
+
+        // Create an empty adapter we will use to display the loaded data.
+        // We pass null for the cursor, then update it in onLoadFinished()
+        SimpleCursorAdapter cAdapter = new SimpleCursorAdapter(this,
+                R.layout.hb_search_result_itemview, Output,
+                fromColumns, toViews, 0);
+        //lets play around here
+        cAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                if (view.getId() == R.id.searchversetest) {
+                    //what this code does it it searches for a substring within a given string and
+                    //highlight the substring-- pretty cool..huh :)
+
+                    String textString = cursor.getString(cursor.getColumnIndex("t"));
+                    Pattern verse = Pattern.compile(searchquery, Pattern.CASE_INSENSITIVE);
+                    Matcher match = verse.matcher(textString);
+                    Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
+                    while (match.find()) {
+                        Log.v("messagetxt", spanText.toString());
+                        spanText.setSpan(new BackgroundColorSpan(0xFFFFFF00), match.start(), match.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        ;
+                    }
+                    ((TextView) view).setText(spanText);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+        ListView mylist = (ListView) findViewById(R.id.hb_result);
+        mylist.setAdapter(cAdapter);
+        pg.setVisibility(View.GONE);
+        TextView pageinfo = (TextView) findViewById(R.id.pageinfo);
+        pageinfo.setText("Search Returned " + cAdapter.getCount() + " verses");
+
     }
 
     //events
@@ -258,6 +321,7 @@ public class HbSearchResult extends AppCompatActivity implements HbBibleVersion.
 
     public void openBar(View v){
         Log.v("Schange","well block");
+        searchHint.setVisibility(View.INVISIBLE);
         searchView.setIconified(false);
     }
 
@@ -275,16 +339,6 @@ public class HbSearchResult extends AppCompatActivity implements HbBibleVersion.
         return themecolor;
     }
 
-    private void setResourcesColor(){
-        String color = getColorTheme();
-        LinearLayout hbmenubar = (LinearLayout)findViewById(R.id.hb_menubar);
-       // ImageButton searchbtn = (ImageButton)findViewById(R.id.hb_searchbtn);
-
-        hbmenubar.setBackgroundColor(Color.parseColor(color));
-       // searchbtn.setBackgroundColor(Color.parseColor(color));
-
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
-    }
 
     @Override
     public void onVersionClick(DialogFragment dialog) {

@@ -54,7 +54,7 @@ public class HbTheme extends DialogFragment {
     }
 
     private void setDialogEvents(View cusdia) {
-        final ImageView imageView2 = (ImageView) cusdia.findViewById(R.id.imageView2);
+        final LinearLayout blood = (LinearLayout) cusdia.findViewById(R.id.blood);
         Button cancel = (Button)cusdia.findViewById(R.id.hb_diacancel);
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -64,44 +64,41 @@ public class HbTheme extends DialogFragment {
             }
         });
 
-        imageView2.setOnClickListener(new View.OnClickListener() {
+        blood.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                String colorcode = (String)imageView2.getTag();
                 themeListener.onThemeClick(HbTheme.this, "HopeBibleTheme");
             }
         });
-        final ImageView imageView3 = (ImageView) cusdia.findViewById(R.id.imageView3);
-        imageView3.setOnClickListener(new View.OnClickListener() {
+
+        final LinearLayout spirit = (LinearLayout) cusdia.findViewById(R.id.spirit);
+        spirit.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-
-                String colorcode = (String)imageView3.getTag();
                 themeListener.onThemeClick(HbTheme.this, "HopeBibleThemeBlue");
             }
         });
-        final ImageView imageView4 = (ImageView) cusdia.findViewById(R.id.imageView4);
-        imageView4.setOnClickListener(new View.OnClickListener() {
+        final LinearLayout glory = (LinearLayout) cusdia.findViewById(R.id.glory);
+        glory.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
-                String colorcode = (String) imageView4.getTag();
-                themeListener.onThemeClick(HbTheme.this, colorcode);
+                themeListener.onThemeClick(HbTheme.this, "HopeBibleThemeGold");
             }
         });
-        final ImageView imageView5 = (ImageView) cusdia.findViewById(R.id.imageView5);
-        imageView5.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                String colorcode = (String) imageView5.getTag();
-                themeListener.onThemeClick(HbTheme.this, colorcode);
-            }
-        });
+//        final ImageView imageView5 = (ImageView) cusdia.findViewById(R.id.imageView5);
+//        imageView5.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+//
+//                String colorcode = (String) imageView5.getTag();
+//                themeListener.onThemeClick(HbTheme.this, colorcode);
+//            }
+//        });
     }
 
     private String getColorTheme(){
